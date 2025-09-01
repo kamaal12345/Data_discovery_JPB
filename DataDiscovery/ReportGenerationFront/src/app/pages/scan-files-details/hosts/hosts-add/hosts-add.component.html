@@ -1,0 +1,66 @@
+<!-- <section class="content-report">
+    <div class="container-bg">
+        <div class="card">
+            <div class="card-body-inner pt-0"> -->
+<form [formGroup]="hostForm" (ngSubmit)="submit()">
+    <div class="row mt-3">
+        <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6">
+            <div class="floating-label-group">
+                <input type="text" class="form-control" required formControlName="name" autocomplete="on" />
+                <label class="floating-label required" for="name">Host Name</label>
+                <small class="errormessage">{{getErrorMessage('name', 'Host Name')}}</small>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6">
+            <div class="floating-label-group">
+                <input type="text" class="form-control" required formControlName="ip" autocomplete="on" />
+                <label class="floating-label required" for="ip">Ip Address</label>
+                <small class="errormessage">{{getErrorMessage('ip', 'Ip Address')}}</small>
+            </div>
+        </div>
+        <!-- <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6">
+            <div class="floating-label-group">
+                <input type="text" class="form-control" required formControlName="description" autocomplete="on" />
+                <label class="floating-label required" for="description">Description</label>
+                <small class="errormessage">{{getErrorMessage('description', 'Description')}}</small>
+            </div>
+        </div> -->
+        <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6">
+            <div class="floating-label-group">
+                <select class="form-control" id="category" formControlName="category">
+                    <option *ngFor="let cat of categories" [value]="cat.value">
+                        {{cat.name }}
+                    </option>
+                </select>
+                <div class="input-group-append showCursor">
+                    <i class="fa fa-angle-down"></i>
+                </div>
+                <label class="floating-label" for="category">Category</label>
+                <small class="errormessage">{{ getErrorMessage('category', 'Category') }}</small>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6">
+            <div class="toggle-switch-container">
+                <label class="switch">
+                    <input type="checkbox" formControlName="status" />
+                    <span class="slider"></span>
+                </label>
+                <span class="label">Active</span>
+            </div>
+        </div>
+        <div class="row">
+            <label class="label required" for="description">Description</label>
+            <angular-editor formControlName="description" [config]="getEditorConfig(false)"></angular-editor>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12 text-center">
+            <button type="reset" class="btn-closed" (click)="cancel()">Cancel</button>
+            <button type="submit" class="btn-submit-all" [disabled]="!hostForm.valid || isLoading">Submit</button>
+        </div>
+    </div>
+</form>
+<!-- </div>
+        </div>
+    </div>
+</section> -->

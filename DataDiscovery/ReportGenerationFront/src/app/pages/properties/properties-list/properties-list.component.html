@@ -1,0 +1,98 @@
+<section class="content-report">
+    <div class="container-bg">
+        <div class="row m-b-10 m-0">
+            <div class="search-section properties-filter-section">
+                <div class="properties-sub-filter">
+                    <div class="floating-label-group">
+                        <input type="text" class="form-control" [(ngModel)]="searchText" required />
+                        <label class="floating-label" for="search">Search </label>
+                        <div class="input-group-append showCursor">
+                            <i class="fas fa-info-circle fontawsome-icon" ngbPopover="Search with Property Type"
+                                placement="bottom" popoverClass="textboxPopoverCls" [autoClose]="'outside'"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="properties-sub-filter">
+                    <button class="btn btn-add-users" (click)="propertiesadd()" ngbTooltip="Add Property">
+                        <i class="fas fa-plus fontawsome-icon"></i> Add
+                    </button>
+                </div>
+            </div>
+
+        </div>
+        <div class="row" style="margin: 0px;">
+            <div style="display: block;">
+
+                <div class="table-responsive">
+                    <table class="table table-theme table-row v-middle">
+                        <thead>
+                            <tr>
+                                <th (click)="sortTable('id')">Value
+                                    <i class="fa" [ngClass]="getIcon('id')" *ngIf="showSort" aria-hidden="true"></i>
+                                </th>
+                                <th (click)="sortTable('name')">Property Type
+                                    <i class="fa" [ngClass]="getIcon('name')" *ngIf="showSort" aria-hidden="true"></i>
+                                </th>
+                                <th>Properties</th>
+                                <th>Active Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngIf="!propertyList || (propertyList && propertyList.length < 1)">
+                                <td colspan="9">{{isLoading ? 'Please wait while loading..' : 'No properties found..'}}
+                                </td>
+                            </tr>
+                            <tr *ngFor="let property of propertyList | filter: searchText; let i = index">
+                                <td>{{property.lookupCodeSetValue}}</td>
+                                <td>{{property.name}}</td>
+                                <td>
+                                    <span *ngFor="let item of property.propertyValues" class="chip chip-primary">
+                                        {{item.description}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="text-success" *ngIf="property.status">Enabled</span>
+                                    <span class="text-danger" *ngIf="!property.status">Disabled</span>
+                                </td>
+                                <td>
+                                    <button class="edit-icon">
+                                        <img src="assets/images/icons/Edit.svg" class="icons_default_size"
+                                            ngbTooltip="Edit"
+                                            [routerLink]="[ '/jrm/properties/edit-property', property.id ]" />
+                                    </button>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row" *ngIf="paginationResponseData?.response && propertyList?.length">
+                    <div class="col-md-2 col-lg-2 col-sm-12 col-xs-12" style="width: max-width;">
+                        <div class="floating-label-group">
+                            <select class="form-control" [(ngModel)]="paginationRequest.pageSize"
+                                (change)="onPageLimitChange($event)">
+                                <option value="" disabled>Select</option>
+                                <option *ngFor="let item of pageLimits" [value]="item">{{item}}</option>
+                            </select>
+                            <label class="floating-label" for="pageLength">Page Length</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                        <div class="floating-label-group">
+                            <label class="floating-label" for="totalResult">Total Records: {{totalResult}}</label>
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12">
+                        <div class="floating-label-group">
+                            <app-custom-pagination [collectionSize]="totalResult" [(page)]="page"
+                                [pageSize]="paginationRequest.pageSize" (pageChange)="onPageChange($event)">
+                            </app-custom-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

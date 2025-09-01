@@ -1,0 +1,175 @@
+<section class="content-report">
+    <div class="container-bg">
+        <div class="row m-b-2 m-0">
+            <div class="card">
+                <div>
+                    <form [formGroup]="userForm" (ngSubmit)="submit()">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                <span class="text-danger float-right" *ngIf="showError">{{errorMsg}}</span>
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <input type="text" formControlName="username" class="form-control"
+                                        ngbTooltip="Alphanumeric and special char [dot(.), underscore(_)] are allowed"
+                                        placeholder=" " />
+                                    <label class="floating-label required" for="username">Username</label>
+                                    <small class="errormessage">{{getErrorMessage('username', 'Username')}}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <input type="password" formControlName="password" class="form-control"
+                                        ngbTooltip=" Must contain atleast 1 uppercase, 1 lowercase, 1 special character and digit"
+                                        [hidden]="isEdit" />
+                                    <input type="password" class="form-control"
+                                        ngbTooltip=" Must contain atleast 1 uppercase, 1 lowercase, 1 special character and digit"
+                                        [hidden]="!isEdit" value="******" #passwordRef
+                                        (keyup)="onPassowrdChange($event)"
+                                        (click)="(passwordRef.value == '******' || !passwordRef?.value?.trim()) ? passwordRef.value = '' : passwordRef.value"
+                                        placeholder=" " />
+                                    <label class="floating-label" [ngClass]="{'required': !isEdit}"
+                                        for="password">Password</label>
+                                    <small class="errormessage">{{getErrorMessage('password', 'Password')}}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <input type="text" formControlName="employeeId" class="form-control"
+                                        ngbTooltip="Alphabets and Numbers are allowed" placeholder=" " />
+                                    <label class="floating-label required" for="employeeId">Employee ID</label>
+                                    <small class="errormessage">{{getErrorMessage('employeeId', 'Employee ID')}}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <input type="text" formControlName="firstName" class="form-control"
+                                        placeholder=" " />
+                                    <label class="floating-label required" for="firstName">First Name</label>
+                                    <small class="errormessage">{{getErrorMessage('firstName', 'First Name')}}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <input type="text" formControlName="middleName" class="form-control" />
+                                    <label class="floating-label" for="middleName">Middle Name</label>
+                                    <small class="errormessage">{{getErrorMessage('middleName', 'Middle Name')}}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <input type="text" formControlName="lastName" class="form-control"
+                                        placeholder=" " />
+                                    <label class="floating-label required" for="lastName">Last Name</label>
+                                    <small class="errormessage">{{getErrorMessage('lastName', 'Last Name')}}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <select class="form-control" formControlName="gender">
+                                        <option value="">Select Gender</option>
+                                        <option *ngFor="let item of genderList" [value]="item.value">
+                                            {{item.description}}
+                                        </option>
+                                    </select>
+                                    <div class="input-group-append showCursor">
+                                        <i class="fa fa-angle-down"></i>
+                                    </div>
+                                    <label class="floating-label required" for="gender">Gender</label>
+                                    <small class="errormessage">{{getErrorMessage('gender', 'Gender')}}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <input type="text" formControlName="dob" class="form-control" placeholder=" "
+                                        ngbDatepicker #do="ngbDatepicker" [maxDate]="maxDate" readonly
+                                        placement="bottom" />
+                                    <div class="input-group-append-date showCursor">
+                                        <i class="fa-solid fa-calendar-days input-group-text" (click)="do.toggle()"></i>
+                                    </div>
+                                    <label class="floating-label-date required" for="dob">Date of Birth</label>
+                                    <small class="errormessage">{{getErrorMessage('dob', 'Date of Birth')}}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <input type="text" formControlName="mobile" class="form-control"
+                                        ngbTooltip="Only Numbers are allowed" placeholder=" " />
+                                    <label class="floating-label required" for="mobile">Mobile</label>
+                                    <small class="errormessage">{{getErrorMessage('mobile', 'Mobile')}}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <input type="text" formControlName="email" class="form-control"
+                                        ngbTooltip="Pattern Eg. john@email.com" placeholder=" " />
+                                    <label class="floating-label required" for="email">Email</label>
+                                    <small class="errormessage">{{getErrorMessage('email', 'Email')}}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <angular2-multiselect style="font-size: small; "
+                                        *ngIf="filteredRolesList && filteredRolesList.length > 0"
+                                        [data]="filteredRolesList" [settings]="rolesSettings" formControlName="role">
+                                    </angular2-multiselect>
+                                    <label class="floating-label-multiselect required" for="role">Role</label>
+                                    <small class="errormessage">{{getErrorMessage('role', 'Role')}}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <select class="form-control" formControlName="status">
+                                        <option value="">Select</option>
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
+                                    </select>
+                                    <div class="input-group-append showCursor">
+                                        <img src="assets/images/icons/arrow-down-fill.svg">
+                                    </div>
+                                    <label class="floating-label required" for="status">Status</label>
+                                    <small class="errormessage">{{getErrorMessage('status', 'Status')}}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <textarea formControlName="comments" class="form-control"
+                                        placeholder=" "></textarea>
+                                    <label class="floating-label" for="comments">Comments</label>
+                                    <small class="errormessage">{{getErrorMessage('comments', 'Comments')}}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <input id="upload" class="form-control" type="file" name="file-upload"
+                                        (change)="handleFileSelect($event)" accept=".png, .jpg , .jpeg" required>
+                                    <label class="floating-label-file" for="resume">Change Profile Image</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6" 
+                            *ngIf="!(globalService.IS_SUPER_ADMIN && userObj.userId === globalService.getUserId())">
+                                <div class="floating-label-group">
+                                    <angular2-multiselect style="font-size: small; "
+                                        *ngIf="designationList && designationList.length > 0" [data]="designationList"
+                                        [settings]="designationSettings" formControlName="designation">
+                                    </angular2-multiselect>
+                                    <label class="floating-label-multiselect" [ngClass]="{ required: isFieldRequired('designation') }"
+                                        for="designation">Designation</label>
+                                    <small class="errormessage">{{getErrorMessage('designation',
+                                        'Designation')}}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-3">
+                            <div class="col-md-12 text-right">
+                                <button class="btn-closed m-r-15" type="reset" (click)="cancel()"
+                                    [disabled]="isLoading">Cancel</button>
+                                <button class="btn-submit-all" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

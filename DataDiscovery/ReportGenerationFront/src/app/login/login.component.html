@@ -1,0 +1,51 @@
+
+<section class="new-login" id="wrapper" *ngIf="!isLoading">
+   
+    <div class="auth-wrapper d-flex no-block justify-content-center align-items-center login-image" style="margin:0px ;">
+            <!-- <img src="assets/images/background/bg-1.jpg" class="login-bg"/> -->
+        
+        <div class="login-form">
+            <div class="logo">
+                <img src=" assets/images/icons/logo-bank.svg" width="100px"/>
+            </div>
+            <h6>Login</h6>
+        <form [formGroup]="userForm">
+            <div class="floating-label-group">
+                <input type="text" formControlName="username" class="form-control" required/>
+                <label class="floating-label" for="username">USERNAME</label>
+                <div *ngIf="userForm.controls['username'].touched">
+                    <small *ngIf="userForm.controls['username'].hasError('required')" class="errormessage">Username required</small>
+                    <small *ngIf="userForm.controls['username'].hasError('minlength')" class="errormessage">Min length (4) required</small>
+                    <small *ngIf="userForm.controls['username'].hasError('maxlength')" class="errormessage">Max length (128) exceeded</small>
+                    <small *ngIf="userForm.controls['username'].hasError('pattern')" class="errormessage">Please enter valid Username Pattern</small>
+                </div>
+            </div>
+            <div class="floating-label-group">
+                <input type="password" formControlName="password" class="form-control" required/>
+                <label class="floating-label" for="password">PASSWORD</label>
+                <div *ngIf="userForm.controls['password'].touched">
+                    <small *ngIf="userForm.controls['password'].hasError('required')" class="errormessage">Password required</small>
+                    <small *ngIf="userForm.controls['password'].hasError('minlength')" class="errormessage">Min length (4) required</small>
+                </div>
+            </div>
+
+            <div class="row text-center text-danger" *ngIf="showError">
+                <small style="font-size: 12px;">{{errorMsg}}</small>
+            </div>
+           
+            <div class="form-group text-center" *ngIf ="!showSessionLogout">
+                <button class="btn btn-primary btn-login" (click)="login()" [disabled]="!userForm.valid || isLoading">
+                    LOGIN
+                </button>
+            </div>
+            <div class="form-group text-center text-danger" *ngIf="showSessionLogout">
+                <button class="btn btn-primary btn-login" (click)="sessionlogout()">
+                    LOGOUT
+                </button>
+            </div>
+            <!-- <h6 class="forgot-password"><a href="#">Forgot Password?</a></h6> -->
+
+        </form>
+        </div>
+    </div>
+</section>

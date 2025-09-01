@@ -1,0 +1,95 @@
+<section class="content-report">
+    <div class="container-bg">
+        <div class="row m-b-2 m-0">
+            <div class="search-section properties-filter-section">
+                <div class="properties-sub-filter">
+                    <div class="floating-label-group">
+                        <input type="text" class="form-control" [(ngModel)]="paginationRequest.searchText"
+                            (keyup)="searchUsers()" required />
+                        <label class="floating-label" for="search">Search </label>
+                        <div class="input-group-append showCursor">
+                            <i class="fas fa-info-circle fontawsome-icon"
+                                ngbPopover="Search with Name / Username / Emp ID / Mobile / Email" placement="bottom"
+                                popoverClass="textboxPopoverCls" [autoClose]="'outside'"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="template-filter-right-section">
+                <button class="btn btn-reset" (click)="reset()" ngbTooltip="Reset Filters">
+                    <img src="assets/images/icons/reset.svg" class="icons_default_size">
+                </button>
+                <button class="btn btn-add-users" (click)="useradd()" ngbTooltip="Add User">
+                    <i class="fas fa-plus fontawsome-icon"></i> Add
+                </button>
+            </div>
+        </div>
+
+        <div class="row m-0 p-0">
+            <div class="col-xl-3 col-sm-6 mb-5" *ngIf="!usersList || !usersList?.length">
+                <td colspan="9">{{isLoading ? 'Please wait while loading..' : 'No users found..'}}</td>
+            </div>
+            <div class="users-box">
+                <div class="bg-white rounded shadow-sm py-2 px-2 userlist user-card" *ngFor="let user of usersList">
+                    <div class="edit-icon-users">
+                        <img src="assets/images/icons/edit-users.svg" class="icons_default_size"
+                            [routerLink]="[ '/jrm/users', user.userId ]" ngbTooltip="Edit" />
+                    </div>
+                    <div class="userlist_left text-center mt-auto mb-auto p-0">
+                        <img [src]="user.profileImg" alt="{{user.userId}}" width="100" class="user_img"
+                            onerror="this.onerror=null;this.src='assets/user-placeholder.jpg';">
+                    </div>
+                    <div class="userlist_bottom">
+                        <div class="username_edit">
+                            <h6>{{user.firstName + ' ' + user.lastName}}</h6>
+                        </div>
+                        <div class="user_role">
+                            <span class="superadmin_color chip chip-default"
+                                *ngIf="user.roleValue.includes(rolesEnum.SUPER_ADMIN)">Super Admin</span>
+                            <span class="admin_color chip chip-default"
+                                *ngIf="user.roleValue.includes(rolesEnum.ADMIN)">Admin</span>
+                            <span class="employee_color chip chip-default"
+                                *ngIf="user.roleValue.includes(rolesEnum.EMPLOYEE)">Employee</span>
+                        </div>
+                        <hr style="border: 1px dashed #6E6E6E;">
+                        <div class="status_roles">
+                            <div class="useremail">{{user.email}}</div>
+                            <div class="usermobile">{{user.mobilePhone}}</div>
+                        </div>
+                        <div class="empid_mobile">
+                            <span [ngClass]="{'chip-active': user.status,'chip-inactive': !user.status}"
+                                class="chip chip-active user_status m-0">
+                                {{user.status ? 'Active' : 'Inactive' }}
+                            </span>
+                            <span class="chip chip-default employee_id m-0">{{user.employeeId}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row m-b-10 m-0" *ngIf="paginationResponseData?.response && usersList?.length">
+            <div class="col-md-2 col-lg-2 col-sm-12 col-xs-12">
+                <div class="floating-label-group">
+                    <select class="form-control" [(ngModel)]="paginationRequest.pageSize"
+                        (change)="onPageLimitChange($event)">
+                        <option value="" disabled>Select</option>
+                        <option *ngFor="let item of pageLimits" [value]="item">{{item}}</option>
+                    </select>
+                    <label class="floating-label" for="pageLength">Page Length</label>
+                </div>
+            </div>
+            <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                <div class="floating-label-group">
+                    <label class="floating-label" for="totalResult">Total Records: {{totalResult}}</label>
+                </div>
+            </div>
+            <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12">
+                <div class="floating-label-group">
+                    <app-custom-pagination [collectionSize]="totalResult" [(page)]="page"
+                        [pageSize]="paginationRequest.pageSize" (pageChange)="onPageChange($event)">
+                    </app-custom-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

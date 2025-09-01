@@ -1,0 +1,283 @@
+<section class="content-cand">
+    <div class="container-bg">
+        <div class="row m-b-10 m-0">
+            <div class="search-section template-filter-section">
+                <div class="template-filter-left-section">
+                    <div class="template-sub-section">
+                        <div class="floating-label-group">
+                            <input type="text" class="form-control" [(ngModel)]="searchText"
+                                (keyup)="searchMatchedData()" required />
+                            <label class="floating-label" for="search">Search</label>
+                            <div class="input-group-append showCursor">
+                                <i class="fas fa-info-circle fontawsome-icon"
+                                    ngbPopover="Search with File Name and PII Type" placement="bottom"
+                                    popoverClass="textboxPopoverCls" [autoClose]="'outside'"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-filter-right-section">
+                    <button class="btn btn-reset" (click)="reset()" ngbTooltip="Reset Filters">
+                        <img src="assets/images/icons/reset.svg" class="icons_default_size">
+                    </button>
+                    <button class="btn btn-add-users" (click)="scanFiles()"
+                        ngbTooltip="Click to scan folders or directories">
+                        <i class="fas fa-plus fontawsome-icon" style="font-size: 12px;"></i> Scan Files
+                    </button>
+                    <button class="btn btn-add-users" ngbTooltip="Add Host Address" *ngIf="!Is_EMPLOYEE"
+                        routerLink='/jrm/scan-files-details/hosts-config/list'>
+                        <img src="assets/images/icons/settings.png" class="icons_default_size"
+                            routerLink='/jrm/scan-files-details/hosts-config/list'>
+                    </button>
+                </div>
+            </div>
+            <div class="content-report m-b-2">
+                <hr />
+                <div class="content-reportlist">
+                    <div class="accordion">
+                        <div class="card">
+                            <div *ngFor="let scan of scanDataList; let i = index">
+                                <div class="card-header d-flex justify-content-between align-items-center"
+                                    style="cursor: pointer; padding: 5px;" (click)="toggleBox(i)">
+                                    <div class="align-items-center d-flex">
+                                        <p class="reportname">{{ scan.targetName }}
+                                            <span class="reportname m-1">{{ scan.filePath }}</span>
+                                            <span class="reportname m-1">{{ scan.createdDate | dateTimeFormat:'time'
+                                                }}</span>
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <img src="assets/images/icons/export-icon.svg"
+                                            (click)="downloadScanResults(scan.requestId)" ngbTooltip="Export Excel"
+                                            style="width: 18px;">
+                                            <button class="btn" style="padding: 0px; padding-left: 10px; margin-bottom: -5px; margin-top: -10px;" (click)="exportHtml(scan)" ngbTooltip="Export html">⬇️</button>
+                                        <i
+                                            [ngClass]="accordionVisibility[i] ? 'fas fa-chevron-up mx-3' : 'fas fa-chevron-down mx-3'"></i>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="accordionVisibility[i]">
+                                    <app-scan-files-details-results
+                                        [requestId]="scan.requestId"
+                                        [searchText]="searchText">
+                                    </app-scan-files-details-results>
+                                </div>
+                            </div>
+
+                            <div class="row" *ngIf="paginationResponseData?.response && scanDataList?.length">
+                                <div class="col-md-2 col-lg-2 col-sm-12 col-xs-12" style="width: max-width;">
+                                    <div class="floating-label-group">
+                                        <select class="form-control" [(ngModel)]="paginationRequest.pageSize"
+                                            (change)="onPageLimitChange($event)">
+                                            <option value="" disabled>Select</option>
+                                            <option *ngFor="let item of pageLimits" [value]="item">{{item}}
+                                            </option>
+                                        </select>
+                                        <label class="floating-label" for="pageLength">Page Length</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                    <div class="floating-label-group">
+                                        <label class="floating-label" for="totalResult">
+                                            Total Records: {{totalResult}}<br>
+                                        </label>
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12">
+                                    <div class="floating-label-group">
+                                        <app-custom-pagination [collectionSize]="totalResult" [(page)]="page"
+                                            [pageSize]="paginationRequest.pageSize" (pageChange)="onPageChange($event)">
+                                        </app-custom-pagination>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<ng-template #content let-modal>
+    <!-- <div class="modal-content" style="width: 100%;"> -->
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Scan Request Details</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="info-row">
+            <div class="label">File Path / Name</div>
+            <div class="colon">:</div>
+            <div class="value">{{ requestDetails?.filePath ?? 'Not specified' }}</div>
+        </div>
+        <div class="info-row">
+            <div class="label">Max File Size</div>
+            <div class="colon">:</div>
+            <div class="value">{{ requestDetails?.maxFileSize ?? '10 MB (default)' }}</div>
+        </div>
+        <div class="info-row">
+            <div class="label">Pii Type</div>
+            <div class="colon">:</div>
+            <div class="chips-container">
+                <span *ngFor="let type of getPiiTypes()" class="custom-chip">{{ type }}</span>
+            </div>
+        </div>
+        <div class="info-row">
+            <div class="label">Exclude Patterns</div>
+            <div class="colon">:</div>
+            <div class="value">{{ requestDetails?.excludePatterns ?? 'Default patterns applied' }}</div>
+        </div>
+        <div class="info-row">
+            <div class="label">Created Date</div>
+            <div class="colon">:</div>
+            <div class="value">{{ requestDetails?.createdDate | date:'medium' }}</div>
+        </div>
+    </div>
+    <div class="modal-footer justify-content-center">
+        <button type="button" class="btn-danger btn-sm " style="padding: 5px; background-color: red;"
+            (click)="modal.dismiss()">
+            close
+        </button>
+    </div>
+    <!-- </div> -->
+</ng-template>
+
+
+<!-- <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs nav-tabs-company">
+                    <li [ngbNavItem]="1">
+                        <a ngbNavLink>Scan Results</a>
+                        <ng-template ngbNavContent>
+                            <div class="content-reportlist">
+                                <div class="accordion">
+                                    <div class="card">
+                                        <div *ngFor="let scan of scanDataList | deepFilter: searchText; let i = index">
+                                            <div class="card-header d-flex justify-content-between align-items-center"
+                                                style="cursor: pointer; padding: 5px;" (click)="toggleBox(i)">
+                                                <div class="align-items-center d-flex"
+                                                    (click)="open(content, scan.requestId ,'xl')">
+                                                    <p class="reportname">{{scan.targetName}}
+                                                        <span class="reportname m-1">
+                                                            {{scan.filePath}}
+                                                        </span>
+                                                        <span class="reportname m-1">
+                                                            {{ scan.createdDate | dateTimeFormat:'time'}}
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    <img src="assets/images/icons/export-icon.svg"
+                                                        (click)="downloadScanResults(scan.requestId)"
+                                                        ngbTooltip=" Export Excel" style="width: 18px;">
+                                                    <i
+                                                        [ngClass]="accordionVisibility[i] ? 'fas fa-chevron-up mx-3' : 'fas fa-chevron-down mx-3'"></i>
+                                                </div>
+                                            </div>
+                                            <table class="table-responsive table table-theme table-row v-middle"
+                                                style="margin: 0px 24px; width: 96%;" *ngIf="accordionVisibility[i]">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S.No.</th>
+                                                        <th>PII Type</th>
+                                                        <th>File Name</th>
+                                                        <th>Match Data</th>
+                                                        <th>IP Address</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr
+                                                        *ngIf="scan?.piiScanResults && scan?.piiScanResults.length === 0">
+                                                        <td colspan="4">{{ isLoading ? 'Please wait while loading..' :
+                                                            'No
+                                                            data found..' }}
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngFor="let results of scan.piiScanResults; let i = index">
+                                                        <td>{{ i + 1 }}</td>
+                                                        <td style="white-space: normal;"
+                                                            style="text-transform: capitalize;">{{
+                                                            results.piiType }}</td>
+                                                        <td style="white-space: normal;">{{ results.filePath }}</td>
+                                                        <td style="white-space: normal;">{{ results.matchedData }}</td>
+                                                        <td style="white-space: normal;">{{ results.ip }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="row"
+                                            *ngIf="paginationResponseData?.response && scanDataList?.length">
+                                            <div class="col-md-2 col-lg-2 col-sm-12 col-xs-12"
+                                                style="width: max-width;">
+                                                <div class="floating-label-group">
+                                                    <select class="form-control"
+                                                        [(ngModel)]="paginationRequest.pageSize"
+                                                        (change)="onPageLimitChange($event)">
+                                                        <option value="" disabled>Select</option>
+                                                        <option *ngFor="let item of pageLimits" [value]="item">{{item}}
+                                                        </option>
+                                                    </select>
+                                                    <label class="floating-label" for="pageLength">Page Length</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                                <div class="floating-label-group">
+                                                    <label class="floating-label" for="totalResult">
+                                                        Total Records: {{totalResult}}<br>
+                                                    </label>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12">
+                                                <div class="floating-label-group">
+                                                    <app-custom-pagination [collectionSize]="totalResult"
+                                                        [(page)]="page" [pageSize]="paginationRequest.pageSize"
+                                                        (pageChange)="onPageChange($event)">
+                                                    </app-custom-pagination>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="2">
+                        <a ngbNavLink>Scan Requests</a>
+                        <ng-template ngbNavContent>
+                            <div class="card"> -->
+<!-- <div *ngFor="let scan of scanDataList | deepFilter: searchText; let i = index">
+                                    <div class="card-header d-flex justify-content-between align-items-center"
+                                        style="cursor: pointer; padding: 5px;">
+
+                                        <div class="align-items-center d-flex">
+                                            <p class="reportname" (click)="open(content, scan.requestId, 'xl')">
+                                                {{ scan.targetName }}
+                                                <span class="reportname m-1">{{ scan.filePath }}</span>
+                                                <span class="reportname m-1">{{ scan.createdDate | dateTimeFormat:'time'
+                                                    }}</span>
+                                            </p>
+                                        </div>
+                                        <div class="progress-label" *ngIf="progressMap[scan.requestId]">
+                                            Progress: {{ progressMap[scan.requestId]?.percentage || 0 }}%
+                                        </div>
+                                        <div class="progress" *ngIf="progressMap[scan.requestId]">
+                                            <div class="progress-bar" role="progressbar"
+                                                [style.width.%]="progressMap[scan.requestId]?.percentage || 0"
+                                                aria-valuemin="0" aria-valuemax="100" [ngClass]="{
+          'bg-success': progressMap[scan.requestId]?.percentage === 100,
+          'bg-info': progressMap[scan.requestId]?.percentage < 100
+       }"></div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div> -->
+<!-- </div>
+                        </ng-template>
+                    </li>
+                    
+                </ul>
+                <div [ngbNavOutlet]="nav" class="mt-2"></div> -->

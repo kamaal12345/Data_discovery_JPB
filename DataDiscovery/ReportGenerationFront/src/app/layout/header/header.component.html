@@ -1,0 +1,43 @@
+<nav>
+    <div class="logo-container">
+        <img src="assets/images/icons/logo-bank.svg" alt=" Jio logo" class="logo-img" />
+        <div>
+            <p class="logo-text">Payments</p>
+            <p class="logo-text">Bank Ltd.</p>
+        </div>
+    </div>
+    <div class="links-container">
+        <ul class="nav-links">
+            <li><a routerLink='/jrm/dashboard' routerLinkActive="active">Home</a></li>
+            <li><a routerLink='/jrm/report-details' routerLinkActive="active">Reports</a></li>
+            <li><a routerLink='/jrm/scan-files-details' routerLinkActive="active">Discover Scanning</a></li>
+            <!-- Show Users only for Admin or Super Admin -->
+            <li *ngIf="globalService.IS_ADMIN || globalService.IS_SUPER_ADMIN">
+                <a routerLink="/jrm/users" routerLinkActive="active">Users</a>
+            </li>
+
+            <!-- Show Properties only for Admin or Super Admin -->
+            <li *ngIf="globalService.IS_ADMIN || globalService.IS_SUPER_ADMIN">
+                <a routerLink="/jrm/properties" routerLinkActive="active">Properties</a>
+            </li>
+        </ul>
+    </div>
+  <div class="right-content">
+    <span class="dropdown">
+      <img *ngIf="!userProfileImage" src="assets/images/icons/profile-image.jpg" class="profile-image"
+        alt="Profile Image" />
+      <img *ngIf="userProfileImage" [src]="userProfileImage" alt="Profile Image" class="profile-image" />
+      <label>
+        <input type="checkbox">
+        <ul>
+          <li (click)="userprofile()"> Edit Profile</li>
+          <li class="divider"></li>
+          <li (click)="logout()" class="logout-cls"> <i class="fas fa-sign-out-alt"></i> Logout</li>
+        </ul>
+      </label>
+    </span>
+    <h5 class="role-div">
+      Logged in as <br /><strong>{{globalService.getUserRoleType()}}</strong>
+    </h5>
+  </div>
+</nav>

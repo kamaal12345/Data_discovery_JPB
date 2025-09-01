@@ -1,0 +1,150 @@
+<section class="content-report">
+    <div class="container-bg">
+        <div class="row m-b-2 m-0">
+            <div class="card">
+                <div class="card-body-inner">
+                    <form [formGroup]="userForm" (ngSubmit)="submit()">
+                        <div class="row">
+                            <div align="center" class="col-md-2">
+                                <img *ngIf="!userObj.profileImg" src="assets/images/user-placeholder.jpg"
+                                    alt="{{userObj.userId}}" width="100" class="profile-image-edit" />
+                                <img *ngIf="userObj.profileImg" [src]="userObj.profileImg" alt="{{userObj.userId}}"
+                                    width="100" class="profile-image-edit" />
+                            </div>
+                            <div class="col-md-10">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                        <span class="errormessage float-right" *ngIf="showError">{{errorMsg}}</span>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                        <div class="floating-label-group">
+                                            <input type="text" formControlName="username" class="form-control" />
+                                            <label class="floating-label required" for="username">Username</label>
+                                            <small class="errormessage">{{getErrorMessage('username',
+                                                'Username')}}</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                        <div class="floating-label-group">
+                                            <input type="password" formControlName="password" class="form-control"
+                                                hidden />
+                                            <input type="password" class="form-control" value="******" #passwordRef
+                                                (keyup)="onPassowrdChange($event)"
+                                                (click)="(passwordRef.value == '******' || !passwordRef?.value?.trim()) ? passwordRef.value = '' : passwordRef.value" />
+                                            <label class="floating-label required" for="password">Password</label>
+                                            <small class="errormessage">{{getErrorMessage('password',
+                                                'Password')}}</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                        <div class="floating-label-group">
+                                            <input type="text" formControlName="employeeId" class="form-control"
+                                                ngbTooltip="Alphabets and Numbers are allowed" />
+                                            <label class="floating-label required" for="employeeId">Employee ID</label>
+                                            <small class="errormessage">{{getErrorMessage('employeeId', 'Employee
+                                                ID')}}</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                        <div class="floating-label-group">
+                                            <input type="text" formControlName="firstName" class="form-control"
+                                                required />
+                                            <label class="floating-label required" for="firstName">First Name</label>
+                                            <small class="errormessage">{{getErrorMessage('firstName', 'First
+                                                Name')}}</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                        <div class="floating-label-group">
+                                            <input type="text" formControlName="middleName" class="form-control" />
+                                            <label class="floating-label" for="middleName">Middle Name</label>
+                                            <small class="errormessage">{{getErrorMessage('middleName', 'Middle
+                                                Name')}}</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                        <div class="floating-label-group">
+                                            <input type="text" formControlName="lastName" class="form-control"
+                                                required />
+                                            <label class="floating-label required" for="lastName">Last Name</label>
+                                            <small class="errormessage">{{getErrorMessage('lastName', 'Last
+                                                Name')}}</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                        <div class="floating-label-group">
+                                            <input type="text" formControlName="mobile" class="form-control" required />
+                                            <label class="floating-label required" for="mobile">Mobile</label>
+                                            <small class="errormessage">{{getErrorMessage('mobile', 'Mobile')}}</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                        <div class="floating-label-group">
+                                            <input type="text" formControlName="email" class="form-control" required />
+                                            <label class="floating-label required" for="email">Email</label>
+                                            <small class="errormessage">{{getErrorMessage('email', 'Email')}}</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                        <div class="floating-label-group">
+                                            <input type="text" formControlName="role" class="form-control" />
+                                            <label class="floating-label required" for="role">Role</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                        <div class="floating-label-group">
+                                            <input id="upload" class="form-control" type="file" name="file-upload"
+                                                (change)="handleFileSelect($event)" accept=".png, .jpg , .jpeg"
+                                                required>
+                                            <label class="floating-label-file" for="uimage">Change Profile Image</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                        <div class="floating-label-group">
+                                            <select class="form-control" formControlName="designation">
+                                                <option value="">Select Designation</option>
+                                                <option *ngFor="let item of designationList" [value]="item.value">
+                                                    {{item.description}}
+                                                </option>
+                                            </select>
+                                            <div class="input-group-append showCursor">
+                                                <img src="assets/images/icons/arrow-down-fill.svg" alt="arrow"/>
+                                            </div>
+                                            <label class="floating-label required" for="designation">Designation</label>
+                                            <small class="errormessage">{{getErrorMessage('designation',
+                                                'Designation')}}</small>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                                        <div class="floating-label-group">
+                                            <select class="form-control" formControlName="department">
+                                                <option value="">Select Department</option>
+                                                <option *ngFor="let department of departmentList"
+                                                    [value]="department.departmentId">{{department.departmentName}}
+                                                </option>
+                                            </select>
+                                            <div class="input-group-append showCursor">
+                                                <img src="../../../assets/images/icons/down-arrow-select.svg">
+                                            </div>
+                                            <label class="floating-label required" for="department">Department</label>
+                                            <small class="errormessage">{{getErrorMessage('department',
+                                                'Department')}}</small>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <button class="btn-closed" type="reset" (click)="cancel()"
+                                    [disabled]="isLoading">Cancel</button>
+                                <button class="btn-submit-all" type="submit"
+                                    [disabled]="!userForm.valid || isLoading">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

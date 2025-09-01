@@ -1,0 +1,70 @@
+<section class="content-cand">
+    <div class="container-bg">
+        <div class="row m-b-10 m-0">
+            <div class="col-md-8 col-lg-8 col-sm-8 col-xs-12">
+                <div class="floating-label-group">
+                    <input id="upload" class="form-control" type="file" name="file-upload" (change)="onFileChange($event)"
+                        accept=".xls, .xlsx" multiple="false" required>
+                    <label class="floating-label-file" for="uimage">Select Excel</label>
+                </div>
+            </div>
+            <div class="col-md-2 col-lg-2 col-sm-2 col-xs-6">
+                <button class="btn btn-info btn-sm btn-submit float-right" (click)="callService()" [disabled]="isLoading">Submit</button>
+            </div>
+            <div class="col-md-2 col-lg-2 col-sm-2 col-xs-6">
+                <button class="btn btn-danger btn-sm btn-cancel float-right" (click)="sampleDownload()">Sample</button>
+            </div>
+        </div>
+        <!-- <app-loader *ngIf="isLoading"></app-loader> -->
+        <div class="card" *ngIf="errorRows && errorRows.length > 0">
+            <div class="card-body" style="display: block;">
+                <div class="table-responsive">
+                    <table class="table table-theme table-row v-middle">
+                        <thead>
+                            <th>Row Number</th>
+                            <th>Vulnerability</th>
+                            <th>Error Column Name</th>
+                            <th>Input</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let row of errorRows">
+                                <td>{{row.rowNumber}}</td>
+                                <td>{{row.vulnerability}}</td>
+                                <td>{{row.errorColName}}</td>
+                                <td>{{row.receivedInput}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Modal Template for Duplicates -->
+<ng-template #content let-modal>
+  <div class="modal-content" style="width: 105%;">
+    <div class="modal-header">
+      <h4 class="modal-title">Existing Report Found</h4>
+      <button type="button" class="close" (click)="closeModal()">
+        <span aria-hidden="true">x</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p><strong>Report ID:</strong> {{ duplicateReportDetails?.reportId }}</p>
+      <p><strong>Scope:</strong> {{ duplicateReportDetails?.scope }}</p>
+      <p><strong>Created Date:</strong> {{ duplicateReportDetails?.createdDate | date }}</p>
+      <p>Do you want to continue with the existing report or stop the upload process?</p>
+    </div>
+    <div class="modal-footer">
+      <!-- Button to continue with the existing report and add vulnerabilities -->
+      <button type="button" class="btn-info btn-sm" (click)="continueWithExistingReport()">Yes, Continue with Existing Report</button>
+      
+      <!-- Button to cancel and stop the upload -->
+      <button type="button" class="btn-secondary btn-sm" (click)="stopUpload()">No, Stop Upload</button>
+    </div>
+  </div>
+</ng-template>
+
+

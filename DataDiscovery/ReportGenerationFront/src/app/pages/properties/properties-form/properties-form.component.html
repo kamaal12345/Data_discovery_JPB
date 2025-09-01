@@ -1,0 +1,86 @@
+<section class="content-cand">
+    <div class="container-bg">
+        <div class="row m-b-10 m-0">
+        <div class="card">
+            <div>
+                <form [formGroup]="propertyForm" (ngSubmit)="submit()">
+                    <div class="row">
+                        <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6">
+                            <div class="floating-label-group">
+                                <input type="text" [formControlName]="'propertyName'" class="form-control" />
+                                <label class="floating-label required" for="propertyName">Property Name</label>
+                                <small class="errormessage">{{getErrorMessage('propertyName', 'Property Name')}}</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6">
+                            <div class="floating-label-group">
+                                <input type="text" [formControlName]="'propertyValue'" class="form-control" />
+                                <label class="floating-label required" for="propertyValue">Property Value</label>
+                                <small class="errormessage">{{getErrorMessage('propertyValue', 'Property Value')}}</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6">
+                            <div class="floating-label-group">
+                                <select class="form-control" [formControlName]="'status'">
+                                    <option value="">Select</option>
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                                <label class="floating-label required" for="status">Active Status</label>
+                                <small class="errormessage">{{getErrorMessage('status', 'Status')}}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-10 col-lg-10 col-sm-8 col-xs-8">
+                            <label class="floating-label-text" for="values">Property Values</label>
+                        </div>
+                        <div class="col-md-2 col-lg-2 col-sm-4 col-xs-4">
+                            <button type="button" class="btn btn-add-users" (click)="addPropertyValueItem()" ngbTooltip="Add Property Value">
+                                <i class="fas fa-plus fontawsome-icon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div formArrayName="propertyValues" *ngFor="let item of propertyValues.controls; let i = index;">
+                        <div [formGroupName]="i" class="row">
+                            <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <input type="text" [formControlName]="'description'" class="form-control" />
+                                    <label class="floating-label required" for="description">Name</label>
+                                    <small class="errormessage">{{getErrorMessageFormArray(i, 'description', 'Name')}}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <input type="text" [formControlName]="'value'" class="form-control"/>
+                                    <label class="floating-label required" for="value">Value</label>
+                                    <small class="errormessage">{{getErrorMessageFormArray(i, 'value', 'Value')}}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <select class="form-control" [formControlName]="'status'">
+                                        <option value="">Select</option>
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
+                                    </select>
+                                    <label class="floating-label required" for="status">Active Status</label>
+                                    <small class="errormessage">{{getErrorMessageFormArray(i, 'status', 'Status')}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-12 text-right">
+                            <button type="button" class="btn-closed" (click)="resetForm()">Reset</button>
+                            <button type="submit" class="btn-submit-all"
+                                [disabled]="!propertyForm.valid || isLoading">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>

@@ -1,0 +1,18 @@
+<section class="auto-invites-sec text-center new-login">
+
+	<main class="grid-item main">
+		<h4>Choose Your Role</h4>
+		<div class="items" *ngIf="!loginRoleType.includes(1)" draggable="true">
+			<div class="item item3" routerLink='/jrm/dashboard' routerLinkActive="active"
+				(click)="selectRole(2)">
+				<img [src]="getDefaultRoleLogo(2)" [alt]="getRoleAltText(2)">
+				<p>Admin</p>
+			</div>
+			<div class="item item4" routerLink='/jrm/dashboard' routerLinkActive="active"
+				(click)="selectRole(3)">
+				<img [src]="getDefaultRoleLogo(3)" [alt]="getRoleAltText(3)">
+				<p>Employee</p>
+			</div>
+		</div>
+	</main>
+</section>

@@ -1,0 +1,259 @@
+<section class="content-report">
+    <div class="container-bg">
+        <div class="card">
+            <div class="card-body-inner pt-0">
+                <form [formGroup]="vulReportForm" (ngSubmit)="submit()">
+                    <div class="my-2">
+                        <div class="row">
+                            <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <input id="typeOfTesting" type="text" formControlName="typeOfTesting"
+                                        placeholder=" " class="form-control" />
+                                    <label class="floating-label required" for="typeOfTesting">Type of Testing</label>
+                                    <small class="errormessage">{{ getErrorMessage('typeOfTesting', 'Type of Testing')
+                                        }}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <input id="scope" type="text" formControlName="scope" placeholder=" "
+                                        class="form-control" />
+                                    <label class="floating-label required" for="scope">Scope</label>
+                                    <small class="errormessage">{{ getErrorMessage('scope', 'Scope')}}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <input id="headerImage" class="form-control" type="file" name="file-upload"
+                                        (change)="handleFileSelect($event,'header')" accept=".png, .jpg , .jpeg"
+                                        required placeholder="">
+                                    <label class="floating-label-file required" for="headerImage">Header Image</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <input id="headerText" type="text" formControlName="headerText" placeholder=" "
+                                        class="form-control" />
+                                    <label class="floating-label" for="headerText">Header Text</label>
+                                    <small class="errormessage">{{ getErrorMessage('headerText', 'Header Text')}}</small>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <input id="footerText" type="text" formControlName="footerText" placeholder=" "
+                                        class="form-control" />
+                                    <label class="floating-label required" for="footerText">Footer Text</label>
+                                    <small class="errormessage">{{ getErrorMessage('footerText', 'Footer Text')
+                                        }}</small>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <input id="applicationName" type="text" formControlName="applicationName"
+                                        placeholder=" " class="form-control" />
+                                    <label class="floating-label required" for="applicationName">Application Name</label>
+                                    <small class="errormessage">{{ getErrorMessage('applicationName', 'Application Name') }}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <select class="form-control select" formControlName="assessmentType"
+                                        style="font-size: 12px;">
+                                        <option value="">Select Assessment Type</option>
+                                        <option value="1">Authenticated</option>
+                                        <option value="0">Unauthenticated</option>
+                                    </select>
+                                    <div class="input-group-append showCursor">
+                                        <img src="assets/images/icons/arrow-down-fill.svg">
+                                    </div>
+                                    <label class="floating-label required" for="assessmentType">Assessment Type</label>
+                                    <small class="errormessage">{{ getErrorMessage('assessmentType', 'Assessment
+                                        Type')}}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <input id="companyName" type="text" formControlName="companyName" placeholder=" "
+                                        class="form-control" />
+                                    <label class="floating-label required" for="companyName">Company Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6">
+                                <div class="floating-label-group">
+                                    <input id="companyLogo" class="form-control" type="file" name="file-upload"
+                                        (change)="handleFileSelect($event,'logo')" accept=".png, .jpg , .jpeg" required
+                                        placeholder="">
+                                    <label class="floating-label-file required" for="companyLogo">Company Logo</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row mt-2">
+                        <div class="col-md-10 col-lg-10 col-sm-8 col-xs-8">
+                            <label class="floating-label-text" for="values">Vulnerabilities Details</label>
+                        </div>
+                        <div class="col-md-2 col-lg-2 col-sm-4 col-xs-4">
+                            <button type="button" class="btn btn-add-users" (click)="addVulnerabilityForm()"
+                                ngbTooltip="Add Vulnerabilities">
+                                <i class="fas fa-plus fontawsome-icon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div formArrayName="vulnerabilities" *ngFor="let item of vulnerabilities.controls; let i = index;">
+                        <div [formGroupName]="i" class="row" style="margin-bottom: 2%;">
+                            <div class="row">
+                                <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6">
+                                    <div class="floating-label-group">
+                                        <select class="form-control select" formControlName="severity"
+                                            style="font-size: 12px;">
+                                            <option value="">Select Level Of Severity</option>
+                                            <option value="High">High</option>
+                                            <option value="Medium">Medium</option>
+                                            <option value="Low">Low</option>
+                                        </select>
+                                        <div class="input-group-append showCursor">
+                                            <img src="assets/images/icons/arrow-down-fill.svg">
+                                        </div>
+                                        <label class="floating-label required" for="severity">Severity</label>
+                                        <small
+                                            class="errormessage">{{getErrorMessageFormArray(i,'severity','Severity')}}</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 editor">
+                                    <ngb-accordion #acc="ngbAccordion">
+                                        <ngb-panel id="ngb-panel-1">
+                                            <ng-template ngbPanelTitle>
+                                                <span class="required">Vulnerability</span>
+                                            </ng-template>
+                                            <ng-template ngbPanelContent>
+                                                <angular-editor formControlName="vulnerability"
+                                                    [config]="getEditorConfig(false)"></angular-editor>
+                                            </ng-template>
+                                        </ngb-panel>
+                                    </ngb-accordion>
+                                </div>
+                                <div class="col-md-6 editor">
+                                    <ngb-accordion #acc="ngbAccordion">
+                                        <ngb-panel id="ngb-panel-2">
+                                            <ng-template ngbPanelTitle>
+                                                <span class="required">AffectedScope</span>
+                                            </ng-template>
+                                            <ng-template ngbPanelContent>
+                                                <angular-editor formControlName="affectedScope"
+                                                    [config]="getEditorConfig(false)"></angular-editor>
+                                            </ng-template>
+                                        </ngb-panel>
+                                    </ngb-accordion>
+                                </div>
+                                <div class="col-md-6 editor">
+                                    <ngb-accordion #acc="ngbAccordion">
+                                        <ngb-panel id="ngb-panel-3">
+                                            <ng-template ngbPanelTitle>
+                                                <span class="required">Description</span>
+                                            </ng-template>
+                                            <ng-template ngbPanelContent>
+                                                <angular-editor formControlName="description"
+                                                    [config]="getEditorConfig(false)"></angular-editor>
+                                            </ng-template>
+                                        </ngb-panel>
+                                    </ngb-accordion>
+                                </div>
+                                <div class="col-md-6 editor">
+                                    <ngb-accordion #acc="ngbAccordion">
+                                        <ngb-panel id="ngb-panel-4">
+                                            <ng-template ngbPanelTitle>
+                                                <span class="required">Observation</span>
+                                            </ng-template>
+                                            <ng-template ngbPanelContent>
+                                                <angular-editor formControlName="observation"
+                                                   [config]="getEditorConfig(false)"></angular-editor>
+                                            </ng-template>
+                                        </ngb-panel>
+                                    </ngb-accordion>
+                                </div>
+                                <div class="col-md-12 editor">
+                                    <ngb-accordion #acc="ngbAccordion">
+                                        <ngb-panel id="ngb-panel-5">
+                                            <ng-template ngbPanelTitle>
+                                                <span class="required">References</span>
+                                            </ng-template>
+                                            <ng-template ngbPanelContent>
+                                                <angular-editor formControlName="references"
+                                                    [config]="getEditorConfig(false)"></angular-editor>
+                                            </ng-template>
+                                        </ngb-panel>
+                                    </ngb-accordion>
+                                </div>
+                                <div class="col-md-12 editor">
+                                    <ngb-accordion #acc="ngbAccordion">
+                                        <ngb-panel id="ngb-panel-6">
+                                            <ng-template ngbPanelTitle>
+                                                <span class="required">Remediation</span>
+                                            </ng-template>
+                                            <ng-template ngbPanelContent>
+                                                <angular-editor formControlName="remediation"
+                                                    [config]="getEditorConfig(false)"></angular-editor>
+                                            </ng-template>
+                                        </ngb-panel>
+                                    </ngb-accordion>
+                                </div>
+                                <div class="col-md-12 editor">
+                                    <ngb-accordion #acc="ngbAccordion">
+                                        <ngb-panel id="ngb-panel-7">
+                                            <ng-template ngbPanelTitle>
+                                                <span class="required">Test Details</span>
+                                            </ng-template>
+                                            <ng-template ngbPanelContent>
+                                                <angular-editor formControlName="testDetails"
+                                                    [config]="getEditorConfig(true)"></angular-editor>
+                                            </ng-template>
+                                        </ngb-panel>
+                                    </ngb-accordion>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="row m-b-10">
+                            <div class="col-md-12 text-right">
+                                <button type="button" class="btn-closed me-2" (click)="resetForm()">Reset</button>
+                                <button type="reset" class="btn-closed" (click)="cancel()">Cancel</button>
+                                <button type="submit" class="btn-submit-all"
+                                    [disabled]="!vulReportForm.valid || isLoading">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal Template for Duplicates -->
+<ng-template #content let-modal>
+    <div class="modal-content" style="width: 105%;">
+        <div class="modal-header">
+            <h4 class="modal-title">Existing Report Found</h4>
+            <button type="button" class="close" (click)="closeModal()">
+                <span aria-hidden="true">x</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p><strong>Report ID:</strong> {{ duplicateReportDetails?.reportId }}</p>
+            <p><strong>Scope:</strong> {{ duplicateReportDetails?.scope }}</p>
+            <p><strong>Created Date:</strong> {{ duplicateReportDetails?.createdDate | date }}</p>
+        </div>
+        <div class="modal-footer justify-content-center">
+            <button type="button" class="btn-info btn-sm dupicate-btn" style="padding: 5px;" (click)="closeModal()">
+                Cancel & Create Vulnerabilities
+            </button>
+        </div>
+
+    </div>
+</ng-template>

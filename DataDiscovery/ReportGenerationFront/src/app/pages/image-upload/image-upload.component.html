@@ -1,0 +1,68 @@
+<section class="content-images">
+    <div class="container-bg">
+        <div class="card">
+            <div class="card-body-inner pt-0">
+                <form [formGroup]="imageForm" (ngSubmit)="submit()">
+                    <div class="row mt-3">
+                        <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6">
+                            <div class="floating-label-group">
+                                <input type="text" class="form-control" required formControlName="name"
+                                    autocomplete="on" />
+                                <label class="floating-label required" for="name">Image Name</label>
+                                <small class="errormessage">{{getErrorMessage('name', 'Image Name')}}</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6">
+                            <div class="floating-label-group">
+                                <input id="upload" type="file" placeholder=" " name="file-upload"
+                                    accept=".png, .jpg , .jpeg" required="" class="form-control"
+                                    (change)="handleFileSelect($event)">
+                                <label for="upload" class="floating-label-file">Upload Image</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6 uploadbtn">
+                            <div class="text-right">
+                                <button type="reset" class="btn-closed" (click)="cancel()">Cancel</button>
+                                <button type="submit" class="btn-submit-all"
+                                    [disabled]="!imageForm.valid || isLoading">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="content-images m-b-2">
+                <hr>
+                <div class="content-list" *ngIf="!isEdit">
+                    <div class="accordion">
+                        <div class="imageUpload">
+                            <div class="viewblock" *ngIf="!isImageView">
+                                <div class="card">
+                                    <div class="card-header d-flex justify-content-between align-items-center"
+                                        (click)="toggleBox()" style="cursor: pointer;">
+                                        <div class="align-items-center d-flex">
+                                            <p>Images</p>
+                                        </div>
+                                        <i [ngClass]="boxVisibility? 'fas fa-chevron-up' : 'fas fa-chevron-down'"></i>
+                                    </div>
+                                    <div class="viewblockbox" *ngIf="boxVisibility ">
+                                        <ng-container *ngFor="let item of imagesList">
+                                            <button type="button" class="btn btn-link"
+                                                (click)="imageClick(item.dataUrl)">
+                                                <span style="width: 50px;"><i class="fa fa-file"></i>{{item.name}} </span>
+                                                <img src="assets/images/icons/edit.png" class="image_edit_icons"
+                                                    [routerLink]="[ '../edit-upload-image-details/',item.id]"
+                                                    ngbTooltip="Edit" />
+                                            </button>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <img width="50%" height="450" [src]="ImageSrc" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

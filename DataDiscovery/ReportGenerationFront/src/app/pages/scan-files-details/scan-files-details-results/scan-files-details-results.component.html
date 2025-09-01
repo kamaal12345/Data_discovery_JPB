@@ -1,0 +1,60 @@
+<div>
+    <div>
+        <table class="table-responsive table table-theme table-row v-middle" style="margin: 0px 24px; width: 96%;">
+            <thead>
+                <tr>
+                    <th>S.No.</th>
+                    <th>PII Type</th>
+                    <th>File Name</th>
+                    <th>Match Data</th>
+                    <th>IP Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngIf="scanResultList && scanResultList.length === 0">
+                    <td colspan="4">{{ isLoading ? 'Please wait while loading..' :
+                        'No
+                        data found..' }}
+                    </td>
+                </tr>
+                <tr *ngFor="let results of scanResultList; let i = index">
+                    <td>{{ (page - 1) * paginationRequest.pageSize + i + 1 }}</td>
+                    <td style="white-space: normal;" style="text-transform: capitalize;">{{
+                        results.piiType }}</td>
+                    <td style="white-space: normal;">{{ results.filePath }}</td>
+                    <td style="white-space: normal;">{{ results.matchedData }}</td>
+                    <td style="white-space: normal;">{{ results.ip }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row" *ngIf="scanResultList?.length && totalResult > paginationRequest.pageSize">
+        <div class="col-md-2 col-lg-2 col-sm-12 col-xs-12" style="width: max-width;">
+            <div class="floating-label-group">
+                <select class="form-control" [(ngModel)]="paginationRequest.pageSize"
+                    (change)="onPageLimitChange($event)">
+                    <option value="" disabled>Select</option>
+                    <option *ngFor="let item of pageLimits" [value]="item">{{item}}
+                    </option>
+                </select>
+                <label class="floating-label" for="pageLength">Page Length</label>
+            </div>
+        </div>
+        <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+            <div class="floating-label-group">
+                <label class="floating-label" for="totalResult">
+                    Total Records: {{totalResult}}<br>
+                </label>
+                <br>
+            </div>
+        </div>
+        <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12">
+            <div class="floating-label-group">
+                <app-custom-pagination [collectionSize]="totalResult" [(page)]="page"
+                    [pageSize]="paginationRequest.pageSize" (pageChange)="onPageChange($event)">
+                </app-custom-pagination>
+            </div>
+        </div>
+    </div>
+</div>

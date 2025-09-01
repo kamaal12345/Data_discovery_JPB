@@ -1,0 +1,370 @@
+<section class="content-report">
+    <div class="container-bg">
+        <div class="card">
+            <div class="card-body-inner pt-0">
+                <form [formGroup]="remotePiiScanRequestForm" (ngSubmit)="submit()">
+                    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+                        <li [ngbNavItem]="1">
+                            <a ngbNavLink>General</a>
+                            <ng-template ngbNavContent>
+                                <div class="content-reportlist">
+                                    <!-- <div class="accordion"> -->
+                                    <div class="card inner-card">
+                                        <div class="card-header d-flex justify-content-between align-items-center"
+                                            style="cursor: pointer; padding: 5px;">
+                                            <div class="showCursor d-flex align-items-center">
+                                                <img src="assets/images/icons/arrow-down-fill.svg" alt="arrow">
+                                                <span class="reportname">General</span>
+                                            </div>
+                                        </div>
+                                        <div class="according-inner-body">
+                                            <div class="row">
+                                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                                    <div class="floating-label-group">
+                                                        <input id="targetName" type="text" formControlName="targetName"
+                                                            placeholder=" " class="form-control" />
+                                                        <label class="floating-label required" for="targetName">Target
+                                                            Name</label>
+                                                        <small class="errormessage">{{ getErrorMessage('targetName',
+                                                            'Target Name')}}</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                                    <div class="floating-label-group">
+                                                        <angular2-multiselect style="font-size: small; "
+                                                            [settings]="dropdownSettings" [data]="piiPatternDropdown"
+                                                            [disabled]="isEdit" formControlName="piiTypes">
+                                                        </angular2-multiselect>
+                                                        <label class="floating-label-multiselect" for="piiTypes">Pii
+                                                            Types</label>
+                                                        <small class="errormessage">{{getErrorMessage('piiTypes',
+                                                            'PiiTypes')}}</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- </div> -->
+                                </div>
+                                <div class="content-reportlist">
+                                    <div class="card inner-card">
+                                        <div class="card-header d-flex justify-content-start align-items-center"
+                                            style="padding: 10px 15px;">
+                                            <div class="d-flex align-items-center gap-4">
+                                                <div class="form-check d-flex align-items-center form-check-inline">
+                                                    <input type="radio" class="form-check-input me-1" id="inlineRadio1"
+                                                        formControlName="serverType" value="linux" />
+                                                    <label class="form-check-label reportname mb-0"
+                                                        for="inlineRadio1">Linux</label>
+                                                </div>
+                                                <div class="form-check d-flex align-items-center form-check-inline">
+                                                    <input type="radio" class="form-check-input me-1" id="inlineRadio2"
+                                                        formControlName="serverType" value="windows" />
+                                                    <label class="form-check-label reportname mb-0"
+                                                        for="inlineRadio2">Windows</label>
+                                                </div>
+                                                <div class="form-check d-flex align-items-center form-check-inline">
+                                                    <input type="radio" class="form-check-input me-1" id="inlineRadio3"
+                                                        formControlName="serverType" value="others" />
+                                                    <label class="form-check-label reportname mb-0"
+                                                        for="inlineRadio3">Others</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="row m-b-10">
+                                        <div class="col-md-12 text-right">
+                                            <button type="button" class="btn-submit-all"
+                                                (click)="changeTab('next')">Next</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+                        <li [ngbNavItem]="2">
+                            <a ngbNavLink>Targeting</a>
+                            <ng-template ngbNavContent>
+                                <div class="content-reportlist mb-3">
+                                    <div class="card inner-card">
+                                        <div class="card-header d-flex justify-content-start align-items-center"
+                                            style="cursor: pointer; padding: 5px;"
+                                            (click)="onServerTypeChange('configured')">
+                                            <div class="me-3">
+                                                <input type="radio" value="configured"
+                                                    [checked]="selectedServerType === 'configured'"
+                                                    (change)="onServerTypeChange('configured')" />
+                                            </div>
+                                            <div class="showCursor d-flex align-items-center">
+                                                <img src="assets/images/icons/arrow-down-fill.svg" alt="arrow" />
+                                                <span class="reportname ms-2">Configured Servers</span>
+                                            </div>
+                                        </div>
+                                        <div class="according-inner-body">
+                                            <div class="m-3">
+                                                <span class="sub-name">Scan Servers</span>
+                                                <hr style="width: 90%;" />
+                                                <div class="d-flex align-items-center gap-3 mt-3">
+                                                    <button *ngIf="currentPage > 1" class="nav-arrow-btn"
+                                                        (click)="prevPage()">&laquo;</button>
+                                                    <ng-container *ngFor="let host of paginatedHosts">
+                                                        <div class="form-check d-flex align-items-center">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                [id]="'host_' + host.id" [value]="host.ip"
+                                                                (change)="onHostCheckboxChange($event)"
+                                                                [checked]="configuredHosts.includes(host.ip)" />
+                                                            <label class="label ms-2 mb-0" [for]="'host_' + host.id">
+                                                                {{ host.name }}
+                                                            </label>
+                                                        </div>
+                                                    </ng-container>
+                                                    <button *ngIf="(currentPage * pageSize) < hostsList.length"
+                                                        class="nav-arrow-btn" (click)="nextPage()">
+                                                        &raquo;
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content-reportlist">
+                                    <div class="card inner-card">
+                                        <div class="card-header d-flex justify-content-start align-items-center"
+                                            style="cursor: pointer; padding: 5px"
+                                            (click)="onServerTypeChange('non-configured')">
+                                            <div class="me-3">
+                                                <input type="radio" value="non-configured"
+                                                    [checked]="selectedServerType === 'non-configured'"
+                                                    (change)="onServerTypeChange('non-configured')" />
+                                            </div>
+                                            <div class="showCursor d-flex align-items-center">
+                                                <img src="assets/images/icons/arrow-down-fill.svg" alt="arrow" />
+                                                <span class="reportname ms-2">Non-Configured Server</span>
+                                            </div>
+                                        </div>
+                                        <div class="according-inner-body"
+                                            *ngIf="selectedServerType === 'non-configured'">
+                                            <div class="m-3">
+                                                <label for="manualIps" class="form-label sub-name">
+                                                    Enter IP addresses (one per line)
+                                                </label>
+                                                <textarea id="manualIps" [(ngModel)]="manualIpList"
+                                                    [ngModelOptions]="{ standalone: true }" rows="5"
+                                                    class="form-control custom-textarea"
+                                                    placeholder="e.g. 192.168.1.10&#10;10.0.0.1" cols="6"></textarea>
+                                                <div class="text-muted mt-1 sub-name">Only valid IPv4 addresses will be
+                                                    accepted.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="row m-b-10">
+                                        <div class="col-md-12 text-right">
+                                            <button type="button" class="btn-closed"
+                                                (click)="changeTab('prev')">Prev</button>
+                                            <button type="button" class="btn-submit-all"
+                                                (click)="changeTab('next')">Next</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+                        <li [ngbNavItem]="3">
+                            <a ngbNavLink>Scanning Content</a>
+                            <ng-template ngbNavContent>
+                                <div class="content-reportlist">
+                                    <div class="card inner-card">
+                                        <div class="card-header d-flex justify-content-between align-items-center"
+                                            style="cursor: pointer; padding: 5px;">
+                                            <div class="showCursor d-flex align-items-center">
+                                                <img src="assets/images/icons/arrow-down-fill.svg" alt="arrow">
+                                                <span class="reportname">User Details</span>
+                                            </div>
+                                        </div>
+                                        <div class="according-inner-body">
+                                            <div class="row">
+                                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                                    <div class="floating-label-group">
+                                                        <input id="username" type="text" formControlName="username"
+                                                            placeholder=" " class="form-control" />
+                                                        <label class="floating-label required"
+                                                            for="username">Name</label>
+                                                        <small class="errormessage">{{ getErrorMessage('username',
+                                                            'Name')}}</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                                    <div class="floating-label-group">
+                                                        <input id="password" type="password" formControlName="password"
+                                                            placeholder=" " class="form-control" />
+                                                        <label class="floating-label required"
+                                                            for="password">Password</label>
+                                                        <small class="errormessage">{{
+                                                            getErrorMessage('password','Password')}}</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                                    <div class="floating-label-group">
+                                                        <input id="conPassword" type="password"
+                                                            formControlName="conPassword" placeholder=" "
+                                                            class="form-control" />
+                                                        <label class="floating-label required" for="conPassword">Confirm
+                                                            Password</label>
+                                                        <small class="errormessage">{{
+                                                            getErrorMessage('conPassword','Confirm Password')}}</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content-reportlist">
+                                    <div class="card inner-card">
+                                        <div class="card-header d-flex justify-content-between align-items-center"
+                                            style="cursor: pointer; padding: 5px;">
+                                            <div class="showCursor d-flex align-items-center">
+                                                <img src="assets/images/icons/arrow-down-fill.svg" alt="arrow">
+                                                <span class="reportname">Content Roots (File Path)</span>
+                                            </div>
+                                        </div>
+                                        <div class="according-inner-body">
+                                            <div class="row">
+                                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                                    <div class="floating-label-group">
+                                                        <input id="filePath" type="text" formControlName="filePath"
+                                                            placeholder=" " class="form-control" />
+                                                        <label class="floating-label required" for="filePath">File
+                                                            Path</label>
+                                                        <small class="errormessage">{{ getErrorMessage('filePath',
+                                                            'File Path')}}</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="row m-b-10">
+                                        <div class="col-md-12 text-right">
+                                            <button type="button" class="btn-closed"
+                                                (click)="changeTab('prev')">Prev</button>
+                                            <button type="button" class="btn-submit-all"
+                                                (click)="changeTab('next')">Next</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+                        <li [ngbNavItem]="4">
+                            <a ngbNavLink>Fillters</a>
+                            <ng-template ngbNavContent>
+                                <div class="content-reportlist">
+                                    <div class="card inner-card">
+                                        <div class="card-header d-flex justify-content-between align-items-center"
+                                            style="cursor: pointer; padding: 5px;">
+                                            <div class="showCursor d-flex align-items-center">
+                                                <img src="assets/images/icons/arrow-down-fill.svg" alt="arrow">
+                                                <span class="reportname">Filters</span>
+                                            </div>
+                                        </div>
+                                        <div class="according-inner-body">
+                                            <div class="row">
+                                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                                    <div class="floating-label-group">
+                                                        <textarea id="excludePatterns" formControlName="excludePatterns"
+                                                            placeholder=" " class="form-control custom-textarea"
+                                                            cols="6"></textarea>
+                                                        <label class="floating-label" for="excludePatterns">Exclude
+                                                            Patterns</label>
+                                                        <small class="errormessage">
+                                                            {{ getErrorMessage('excludePatterns', 'Exclude Patterns') }}
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="row m-b-10">
+                                        <div class="col-md-12 text-right">
+                                            <button type="button" class="btn-closed"
+                                                (click)="changeTab('prev')">Prev</button>
+                                            <button type="button" class="btn-submit-all"
+                                                (click)="changeTab('next')">Next</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+                        <li [ngbNavItem]="5">
+                            <a ngbNavLink>Advanced</a>
+                            <ng-template ngbNavContent>
+                                <div class="content-reportlist">
+                                    <div class="card inner-card">
+                                        <div class="card-header d-flex justify-content-between align-items-center"
+                                            style="cursor: pointer; padding: 5px;">
+                                            <div class="showCursor d-flex align-items-center">
+                                                <img src="assets/images/icons/arrow-down-fill.svg" alt="arrow">
+                                                <span class="reportname">Inventory Scanning</span>
+                                            </div>
+                                        </div>
+                                        <div class="according-inner-body">
+                                            <div class="row">
+                                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                                    <div class="floating-label-group">
+                                                        <input id="maxFileSize" type="number"
+                                                            formControlName="maxFileSize" placeholder=" "
+                                                            class="form-control" />
+                                                        <label class="floating-label required" for="maxFileSize">Max
+                                                            File Size</label>
+                                                        <small class="errormessage">{{
+                                                            getErrorMessage('maxFileSize','Max File Size')}}</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                                    <div class="floating-label-group">
+                                                        <input id="stopScannAfter" type="number"
+                                                            formControlName="stopScannAfter" placeholder=" "
+                                                            class="form-control" />
+                                                        <label class="floating-label required" for="stopScannAfter">Stop
+                                                            Scanning After no. Incidents</label>
+                                                        <small class="errormessage">{{ getErrorMessage('stopScannAfter',
+                                                            'no. Incidents Required')}}</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="row m-b-10">
+                                        <div class="col-md-12 text-right">
+                                            <button type="button" class="btn-closed mx-2"
+                                                (click)="changeTab('prev')">Prev</button>
+                                            <button type="reset" class="btn-closed" (click)="cancel()">Cancel</button>
+                                            <button type="submit" class="btn-submit-all">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+                    </ul>
+                    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+                    <!-- <hr> -->
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

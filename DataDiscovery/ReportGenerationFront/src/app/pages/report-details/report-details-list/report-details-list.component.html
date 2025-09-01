@@ -1,0 +1,132 @@
+<section class="content-cand">
+    <div class="container-bg">
+        <div class="row m-b-10 m-0">
+            <div class="search-section template-filter-section">
+                <div class="template-filter-left-section">
+                    <div class="template-sub-section">
+                        <div class="floating-label-group">
+                            <input type="text" class="form-control" [(ngModel)]="searchText"
+                                (keyup)="searchReportDetails()" required />
+                            <label class="floating-label" for="search">Search</label>
+                            <div class="input-group-append showCursor">
+                                <i class="fas fa-info-circle fontawsome-icon" ngbPopover="Search with Severity and Vulnerability"
+                                    placement="bottom" popoverClass="textboxPopoverCls" [autoClose]="'outside'"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-filter-right-section">
+                    <button class="btn btn-reset" (click)="reset()" ngbTooltip="Reset Filters">
+                        <img src="assets/images/icons/reset.svg" class="icons_default_size">
+                    </button>
+                    <img src="assets/images/icons/export-icon.svg" [routerLink]="['../vulner-upload']" ngbTooltip="Upload Vulnerabilities">
+                    <button class="btn btn-add-users" [routerLink]="['../add']"  ngbTooltip="Add Vulnerability">
+                        <i class="fas fa-plus fontawsome-icon" style="font-size: 12px;"></i> Add Vulnerability
+                    </button>
+                    <button class="btn btn-add-users"   ngbTooltip="Document Image Upload" *ngIf="!Is_EMPLOYEE">
+                        <img src="assets/images/icons/settings.png" class="icons_default_size"
+                        routerLink ='/jrm/image-upload' >
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="content-report m-b-2">
+            <hr />
+            <div class="content-reportlist">
+                <div class="accordion">
+                    <div class="card">
+                        <div class="col-md-10 col-lg-10 col-sm-8 col-xs-8">
+                            <label class="floating-label-text" for="values">
+                                <p>Report Details</p>
+                            </label>
+                        </div>
+                        <div *ngFor="let report of reportDetailsWithVulList | deepFilter: searchText; let i = index">
+                            <div class="card-header d-flex justify-content-between align-items-center"
+                                 style="cursor: pointer; padding: 5px;">
+                                <div class="align-items-center d-flex">
+                                    <p class="reportname">{{ report.typeOfTesting}} <span
+                                            class="reportname m-1">
+                                            {{ report.createdDate | dateTimeFormat}}</span></p>
+                                </div>
+                                <div>
+                                    <button class="edit-icon" type="button" (click)="onPdfdownloadClick(report.reportId); $event.stopPropagation()">
+                                        <img src="assets/images/icons/download.png" class="icons_default_size"
+                                            ngbTooltip="Download Pdf" >
+                                    </button>
+                                    <button class="edit-icon" type="button" (click)="onGeneratePdfClick(report.reportId); $event.stopPropagation()">
+                                        <img src="assets/images/icons/pdf.png" class="icons_default_size"
+                                            ngbTooltip="Preview Pdf"
+                                            >
+                                    </button>
+                                    <button class="edit-icon" type="button" [routerLink]="['../edit-report-details', report.reportId]" (click)="$event.stopPropagation()">
+                                        <img src="assets/images/icons/Edit.svg" class="icons_default_size"
+                                            ngbTooltip="Edit">
+                                    </button>
+                                    <i [ngClass]="boxVisibility ? 'fas fa-chevron-up mx-3' : 'fas fa-chevron-down mx-3'" (click)="toggleBox()"></i>
+                                </div>
+                            </div>
+                            <table class="table-responsive table table-theme table-row v-middle" *ngIf="boxVisibility"
+                                style="margin: 0px 50px; width: 95%;">
+                                <thead>
+                                    <tr>
+                                        <!-- <th (click)="sortTable('severity')">Severity
+                                            <i class="fa" [ngClass]="getIcon('severity')" *ngIf="showSort"
+                                                aria-hidden="true"></i>
+                                        </th>
+                                        <th (click)="sortTable('vulId')">Vulnerability Id
+                                            <i class="fa" [ngClass]="getIcon('vulId')" *ngIf="showSort"
+                                                aria-hidden="true"></i>
+                                        </th> -->
+                                        <th>Severity</th>
+                                        <th>Vulnerability Id</th>
+                                        <th>Vulnerability</th>
+                                        <th>createdDate</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngIf="report.vulnerabilities && report.vulnerabilities.length === 0">
+                                        <td colspan="4">{{ isLoading ? 'Please wait while loading..' : 'No
+                                            Reports found..' }}
+                                        </td>
+                                    </tr>
+                                    <tr *ngFor="let vul of report.vulnerabilities">
+                                        <td style="white-space: normal;">{{ vul.severity }}</td>
+                                        <td style="white-space: normal;">{{ vul.vulId }}</td>
+                                        <td style="white-space: normal;" [innerHtml]="vul.vulnerability"></td>
+                                        <td style="white-space: normal;"><span>{{ vul.createdDate | dateTimeFormat }}</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row my-2"
+                            *ngIf="paginationResponseData?.response && reportDetailsWithVulList?.length">
+                            <div class="col-md-2 col-lg-2 col-sm-12 col-xs-12">
+                                <div class="floating-label-group">
+                                    <select class="form-control" [(ngModel)]="paginationRequest.pageSize"
+                                        (change)="onPageLimitChange($event)" style="font-size: 12px;">
+                                        <option value="" disabled>Select</option>
+                                        <option *ngFor="let item of pageLimits" [value]="item">{{item}}</option>
+                                    </select>
+                                    <label class="floating-label" for="pageLength">Page Length</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                <div class="floating-label-group">
+                                    <label class="floating-label" for="totalResult">Total Records:
+                                        {{totalResult}}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12">
+                                <div class="floating-label-group">
+                                    <app-custom-pagination [collectionSize]="totalResult" [(page)]="page"
+                                        [pageSize]="paginationRequest.pageSize" (pageChange)="onPageChange($event)">
+                                    </app-custom-pagination>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

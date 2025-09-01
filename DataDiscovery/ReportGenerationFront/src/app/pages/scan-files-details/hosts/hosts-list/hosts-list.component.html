@@ -1,0 +1,121 @@
+<section class="content-cand">
+    <div class="container-bg">
+        <div class="row m-b-10 m-0">
+            <div class="search-section template-filter-section">
+                <div class="template-filter-left-section">
+                    <div class="template-sub-section">
+                        <div class="floating-label-group">
+                            <input type="text" class="form-control" [(ngModel)]="searchText"
+                                (keyup)="searchMatchedData()" required />
+                            <label class="floating-label" for="search">Search</label>
+                            <div class="input-group-append showCursor">
+                                <i class="fas fa-info-circle fontawsome-icon" ngbPopover="Search with Category"
+                                    placement="bottom" popoverClass="textboxPopoverCls" [autoClose]="'outside'"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-filter-right-section">
+                    <button class="btn btn-add-users" (click)="OpenAddHosts(addHost,'xl')"
+                        ngbTooltip="Click to Add Host Address">
+                        <i class="fas fa-plus fontawsome-icon" style="font-size: 12px;"></i> Add Host Address
+                    </button>
+                </div>
+            </div>
+            <div class="content-report m-b-2">
+                <hr />
+                <div class="content-reportlist">
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="table table-theme table-row v-middle">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Category</th>
+                                        <th>Host Name</th>
+                                        <th>IP Address</th>
+                                        <th>Description</th>
+                                        <th>Created Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngIf="!hostsList || !hostsList?.length">
+                                        <td colspan="9">{{isLoading ? 'Please wait while loading..' : 'No Host Address found..'}}</td>
+                                    </tr>
+                                    <tr *ngFor="let host of hostsList">
+                                        <td>
+                                            <span>
+                                                <div class="host_status_true_color" *ngIf="host.status == 1"
+                                                    ngbTooltip="Active"></div>
+                                                <div class="host_status_false_color" *ngIf="host.status == 0"
+                                                    ngbTooltip="InActive"></div>
+                                            </span>
+                                        </td>
+                                        <td>{{globalService.getCategoryLabel(host.category)}}</td>
+                                        <td>{{host.name}}</td>
+                                        <td>{{host.ip}}</td>
+                                        <td [innerHtml]="host.description"></td>
+                                        <td>{{host.createdDate | dateTimeFormat:'dd-MM-yyyy' }}</td>
+                                        <td>
+                                            <button class="edit-icon" type="button" (click)="OpenAddHosts(addHost,'xl',host.id)">
+                                                <img src="assets/images/icons/Edit.svg" class="icons_default_size"
+                                                    ngbTooltip="Edit">
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<ng-template #content let-modal>
+    <div class="modal-content" style="width: 100%;">
+        <div class="modal-header">
+            <h4 class="modal-title">Host Address Details</h4>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+            <div class="info-row">
+                <div class="label">Host Nmae</div>
+                <div class="colon">:</div>
+                <div class="value">{{ hostDetails?.name ?? 'Not specified' }}</div>
+            </div>
+            <div class="info-row">
+                <div class="label">IP Address</div>
+                <div class="colon">:</div>
+                <div class="value">{{ hostDetails?.ip }}</div>
+            </div>
+            <div class="info-row">
+                <div class="label">Description</div>
+                <div class="colon">:</div>
+                <div class="value">{{ hostDetails?.description }}</div>
+            </div>
+            <div class="info-row">
+                <div class="label">Created Date</div>
+                <div class="colon">:</div>
+                <div class="value">{{ hostDetails?.createdDate | date:'medium' }}</div>
+            </div>
+        </div>
+        <div class="modal-footer justify-content-center">
+            <button type="button" class="btn-danger btn-sm " style="padding: 5px;" (click)="modal.dismiss()">
+                close
+            </button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #addHost let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Add Host Address Details</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <app-hosts-add [modalRef]="modal" [id]="idToEdit"></app-hosts-add>
+    </div>
+</ng-template>

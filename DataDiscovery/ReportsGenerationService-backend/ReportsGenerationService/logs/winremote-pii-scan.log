@@ -1,0 +1,39 @@
+2025-08-19 13:28:23.734 [http-nio-8080-exec-6] INFO  c.j.s.WindowsRemotePiiScanService - 🔍 Starting new Windows scan: [cb8012e3] Target: Testing-DR-SERVER-10.147.73.21, Path: C:/Users/infosecurity/Documents
+2025-08-19 13:28:23.749 [http-nio-8080-exec-6] INFO  c.j.s.WindowsRemotePiiScanService - ✅ WinRM connection successful to host 10.147.73.21
+2025-08-19 13:28:23.751 [http-nio-8080-exec-6] INFO  c.j.s.WindowsRemotePiiScanService - 🚀 Using thread pool size: 24
+2025-08-19 13:28:23.751 [http-nio-8080-exec-6] INFO  c.j.s.WindowsRemotePiiScanService - 📁 Starting scan on drive: C:/Users/infosecurity/Documents
+2025-08-19 13:28:28.144 [pool-3-thread-1] INFO  c.j.s.WindowsRemotePiiScanService - 🔎 Scanning file: C:\Users\infosecurity\Documents\mydetails.txt
+2025-08-19 13:28:28.144 [pool-3-thread-2] INFO  c.j.s.WindowsRemotePiiScanService - 🔎 Scanning file: C:\Users\infosecurity\Documents\Picture 002.jpg
+2025-08-19 13:28:28.144 [pool-3-thread-3] INFO  c.j.s.WindowsRemotePiiScanService - 🔎 Scanning file: C:\Users\infosecurity\Documents\Picture 002.pdf
+2025-08-19 13:28:29.519 [pool-3-thread-1] INFO  c.j.s.WindowsRemotePiiScanService - ✅ Matched lines in text: C:\Users\infosecurity\Documents\mydetails.txt
+2025-08-19 13:28:30.357 [pool-3-thread-2] INFO  c.j.s.WindowsRemotePiiScanService - 📸 Detected image format 'JPEG' for file: winrm_2872358564690611359.jpg
+2025-08-19 13:28:30.867 [pool-3-thread-3] INFO  c.j.s.WindowsRemotePiiScanService - 📄 [PlainOCR] Processing PDF page 1/2
+2025-08-19 13:28:31.994 [pool-3-thread-2] INFO  c.j.s.WindowsRemotePiiScanService - ✅ Scanned binary/image/pdf file: C:\Users\infosecurity\Documents\Picture 002.jpg
+2025-08-19 13:28:33.220 [pool-3-thread-3] INFO  c.j.s.WindowsRemotePiiScanService - 📄 [PlainOCR] Processing PDF page 2/2
+2025-08-19 13:28:35.587 [pool-3-thread-3] INFO  c.j.s.WindowsRemotePiiScanService - ✅ Scanned binary/image/pdf file: C:\Users\infosecurity\Documents\Picture 002.pdf
+2025-08-19 13:30:14.584 [http-nio-8080-exec-1] INFO  c.j.s.WindowsRemotePiiScanService - 🔍 Starting new Windows scan: [a8ef4b0e] Target: Testing-DR-SERVER-10.147.73.21, Path: C:/Users/infosecurity/Documents
+2025-08-19 13:30:14.584 [http-nio-8080-exec-1] INFO  c.j.s.WindowsRemotePiiScanService - ✅ WinRM connection successful to host 10.147.73.21
+2025-08-19 13:30:14.584 [http-nio-8080-exec-1] INFO  c.j.s.WindowsRemotePiiScanService - 🚀 Using thread pool size: 24
+2025-08-19 13:30:14.584 [http-nio-8080-exec-1] INFO  c.j.s.WindowsRemotePiiScanService - 📁 Starting scan on drive: C:/Users/infosecurity/Documents
+2025-08-19 13:30:17.177 [pool-8-thread-1] INFO  c.j.s.WindowsRemotePiiScanService - 🔎 Scanning file: C:\Users\infosecurity\Documents\mydetails.txt
+2025-08-19 13:30:17.177 [pool-8-thread-2] INFO  c.j.s.WindowsRemotePiiScanService - 🔎 Scanning file: C:\Users\infosecurity\Documents\Picture 002.jpg
+2025-08-19 13:30:17.178 [pool-8-thread-3] INFO  c.j.s.WindowsRemotePiiScanService - 🔎 Scanning file: C:\Users\infosecurity\Documents\Picture 002.pdf
+2025-08-19 13:30:18.991 [pool-8-thread-1] INFO  c.j.s.WindowsRemotePiiScanService - ✅ Matched lines in text: C:\Users\infosecurity\Documents\mydetails.txt
+2025-08-19 13:30:19.510 [pool-8-thread-2] INFO  c.j.s.WindowsRemotePiiScanService - 📸 Detected image format 'JPEG' for file: winrm_8393044635898583230.jpg
+2025-08-19 13:30:20.440 [pool-8-thread-3] INFO  c.j.s.WindowsRemotePiiScanService - 📄 [PlainOCR] Processing PDF page 1/2
+2025-08-19 13:30:20.778 [pool-8-thread-2] INFO  c.j.s.WindowsRemotePiiScanService - ✅ Scanned binary/image/pdf file: C:\Users\infosecurity\Documents\Picture 002.jpg
+2025-08-19 13:30:22.585 [pool-8-thread-3] INFO  c.j.s.WindowsRemotePiiScanService - 📄 [PlainOCR] Processing PDF page 2/2
+2025-08-19 13:30:24.908 [pool-8-thread-3] INFO  c.j.s.WindowsRemotePiiScanService - ✅ Scanned binary/image/pdf file: C:\Users\infosecurity\Documents\Picture 002.pdf
+2025-08-19 13:42:30.556 [http-nio-8080-exec-9] INFO  c.j.s.WindowsRemotePiiScanService - 🔍 Starting new Windows scan: [305f28ff] Target: Testing-DR-SERVER-10.147.73.21, Path: C:/Users/infosecurity/Documents
+2025-08-19 13:42:30.558 [http-nio-8080-exec-9] INFO  c.j.s.WindowsRemotePiiScanService - ✅ WinRM connection successful to host 10.147.73.21
+2025-08-19 13:42:30.558 [http-nio-8080-exec-9] INFO  c.j.s.WindowsRemotePiiScanService - 🚀 Using thread pool size: 24
+2025-08-19 13:42:30.559 [http-nio-8080-exec-9] INFO  c.j.s.WindowsRemotePiiScanService - 📁 Starting scan on drive: C:/Users/infosecurity/Documents
+2025-08-19 13:42:31.924 [pool-15-thread-1] INFO  c.j.s.WindowsRemotePiiScanService - 🔎 Scanning file: C:\Users\infosecurity\Documents\mydetails.txt
+2025-08-19 13:42:31.925 [pool-15-thread-2] INFO  c.j.s.WindowsRemotePiiScanService - 🔎 Scanning file: C:\Users\infosecurity\Documents\Picture 002.jpg
+2025-08-19 13:42:31.925 [pool-15-thread-3] INFO  c.j.s.WindowsRemotePiiScanService - 🔎 Scanning file: C:\Users\infosecurity\Documents\Picture 002.pdf
+2025-08-19 13:42:33.125 [pool-15-thread-1] INFO  c.j.s.WindowsRemotePiiScanService - ✅ Matched lines in text: C:\Users\infosecurity\Documents\mydetails.txt
+2025-08-19 13:42:34.055 [pool-15-thread-2] INFO  c.j.s.WindowsRemotePiiScanService - 📸 Detected image format 'JPEG' for file: winrm_15728260621188043145.jpg
+2025-08-19 13:42:34.333 [pool-15-thread-3] INFO  c.j.s.WindowsRemotePiiScanService - 📄 [PlainOCR] Processing PDF page 1/2
+2025-08-19 13:42:35.614 [pool-15-thread-2] INFO  c.j.s.WindowsRemotePiiScanService - ✅ Scanned binary/image/pdf file: C:\Users\infosecurity\Documents\Picture 002.jpg
+2025-08-19 13:42:36.934 [pool-15-thread-3] INFO  c.j.s.WindowsRemotePiiScanService - 📄 [PlainOCR] Processing PDF page 2/2
+2025-08-19 13:42:39.831 [pool-15-thread-3] INFO  c.j.s.WindowsRemotePiiScanService - ✅ Scanned binary/image/pdf file: C:\Users\infosecurity\Documents\Picture 002.pdf

@@ -1,0 +1,114 @@
+2025-08-21 12:25:06.237 [http-nio-8080-exec-9] INFO  c.jio.services.RemotePiiScanService - 🔍 Starting new scan: [1700be82] Target: Testing-10.147.78.135, Path: /
+2025-08-21 12:25:07.918 [http-nio-8080-exec-9] INFO  c.jio.services.RemotePiiScanService - ✅ SSH connection successful to host 10.147.78.135
+2025-08-21 12:25:09.763 [http-nio-8080-exec-9] INFO  c.jio.services.RemotePiiScanService - 🚀 Using fixed thread pool size: 10
+2025-08-21 12:25:10.522 [http-nio-8080-exec-9] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/docs/The_Analyzer/OSWatcherAnalyzerOverview.pdf
+2025-08-21 12:25:10.522 [http-nio-8080-exec-9] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/docs/The_Analyzer/oswbbaUserGuide.pdf
+2025-08-21 12:25:10.523 [http-nio-8080-exec-9] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/docs/The_Analyzer/oswbba_README.txt
+2025-08-21 12:25:10.523 [http-nio-8080-exec-9] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/docs/OSWatcher/OSWatcherUserGuide.pdf
+2025-08-21 12:25:10.523 [http-nio-8080-exec-9] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/docs/OSWatcher/oswbb_README.txt
+2025-08-21 12:25:10.524 [http-nio-8080-exec-9] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/Example_extras.txt
+2025-08-21 12:25:10.524 [http-nio-8080-exec-9] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/src/oswbba_input.txt
+2025-08-21 12:25:10.524 [http-nio-8080-exec-9] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/src/missing_graphic.gif
+2025-08-21 12:25:10.524 [http-nio-8080-exec-9] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/src/coe_logo.gif
+2025-08-21 12:25:10.524 [http-nio-8080-exec-9] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/src/watch.gif
+2025-08-21 12:25:10.524 [http-nio-8080-exec-9] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/src/tombody.gif
+2025-08-21 12:25:10.526 [http-nio-8080-exec-9] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/home/jioadm/patches/README.txt
+2025-08-21 12:25:10.529 [http-nio-8080-exec-9] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/root/OA_12.12_LIN/opensource/License.txt
+2025-08-21 12:25:10.529 [http-nio-8080-exec-9] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/root/OA_12.12_LIN/OperationsAgent_ReadMe.pdf
+2025-08-21 12:25:13.517 [pool-3-thread-3] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /home/infosecurity/mydetails.txt
+2025-08-21 12:25:13.554 [pool-3-thread-1] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /home/topsadm/donttouch.txt
+2025-08-21 12:25:13.555 [pool-3-thread-4] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /home/infosecurity/text.txt
+2025-08-21 12:25:13.569 [pool-3-thread-9] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /neapp/NEWizard_Setup/NEWizard_SetupV1.8.115.txt
+2025-08-21 12:25:13.586 [pool-3-thread-2] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /home/jioappadm/.mozilla/firefox/fh3xncbw.default-default/pkcs11.txt
+2025-08-21 12:25:13.596 [pool-3-thread-8] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /neapp/NEWizard_Setup_030323/NEWizard_SetupV1.8.115.txt
+2025-08-21 12:25:13.870 [pool-3-thread-6] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /home/infosecurity/Sample_Document.pdf
+2025-08-21 12:25:14.077 [pool-3-thread-7] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /root/OA_12.12_LIN/EULA.txt
+2025-08-21 12:25:14.131 [pool-3-thread-1] INFO  c.jio.services.RemotePiiScanService - ✅ Matched lines in text: /home/topsadm/donttouch.txt
+2025-08-21 12:25:14.226 [pool-3-thread-2] INFO  c.jio.services.RemotePiiScanService - ✅ Matched lines in text: /home/jioappadm/.mozilla/firefox/fh3xncbw.default-default/pkcs11.txt
+2025-08-21 12:25:14.240 [pool-3-thread-3] INFO  c.jio.services.RemotePiiScanService - ✅ Matched lines in text: /home/infosecurity/mydetails.txt
+2025-08-21 12:25:14.309 [pool-3-thread-9] INFO  c.jio.services.RemotePiiScanService - ✅ Matched lines in text: /neapp/NEWizard_Setup/NEWizard_SetupV1.8.115.txt
+2025-08-21 12:25:14.310 [pool-3-thread-8] INFO  c.jio.services.RemotePiiScanService - ✅ Matched lines in text: /neapp/NEWizard_Setup_030323/NEWizard_SetupV1.8.115.txt
+2025-08-21 12:25:14.327 [pool-3-thread-4] INFO  c.jio.services.RemotePiiScanService - ✅ Matched lines in text: /home/infosecurity/text.txt
+2025-08-21 12:25:14.651 [pool-3-thread-5] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /home/infosecurity/1000106663.jpg
+2025-08-21 12:25:14.794 [pool-3-thread-7] INFO  c.jio.services.RemotePiiScanService - ✅ Matched lines in text: /root/OA_12.12_LIN/EULA.txt
+2025-08-21 12:25:15.005 [pool-3-thread-6] INFO  c.jio.services.RemotePiiScanService - 📄 [PlainOCR] Processing PDF page 1/1
+2025-08-21 12:25:15.445 [pool-3-thread-5] INFO  c.jio.services.RemotePiiScanService - 📸 Detected image format 'JPEG' for file: remote_6215790375415022524_1000106663.jpg
+2025-08-21 12:25:15.482 [pool-3-thread-6] INFO  c.jio.services.RemotePiiScanService - 📄 [EnhancedOCR] Processing PDF page 1/1
+2025-08-21 12:25:16.338 [pool-3-thread-5] INFO  c.jio.services.RemotePiiScanService - ✅ Scanned binary/image/pdf file: /home/infosecurity/1000106663.jpg
+2025-08-21 12:25:19.347 [pool-3-thread-6] INFO  c.jio.services.RemotePiiScanService - ✅ Scanned binary/image/pdf file: /home/infosecurity/Sample_Document.pdf
+2025-08-21 12:29:50.053 [http-nio-8080-exec-2] INFO  c.jio.services.RemotePiiScanService - 🔍 Starting new scan: [e35a5799] Target: Testing-10.147.78.135, Path: /
+2025-08-21 12:29:51.705 [http-nio-8080-exec-2] INFO  c.jio.services.RemotePiiScanService - ✅ SSH connection successful to host 10.147.78.135
+2025-08-21 12:29:53.552 [http-nio-8080-exec-2] INFO  c.jio.services.RemotePiiScanService - 🚀 Using thread pool size: 24
+2025-08-21 12:29:54.104 [http-nio-8080-exec-2] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/docs/The_Analyzer/OSWatcherAnalyzerOverview.pdf
+2025-08-21 12:29:54.104 [http-nio-8080-exec-2] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/docs/The_Analyzer/oswbbaUserGuide.pdf
+2025-08-21 12:29:54.104 [http-nio-8080-exec-2] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/docs/The_Analyzer/oswbba_README.txt
+2025-08-21 12:29:54.104 [http-nio-8080-exec-2] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/docs/OSWatcher/OSWatcherUserGuide.pdf
+2025-08-21 12:29:54.104 [http-nio-8080-exec-2] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/docs/OSWatcher/oswbb_README.txt
+2025-08-21 12:29:54.104 [http-nio-8080-exec-2] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/Example_extras.txt
+2025-08-21 12:29:54.104 [http-nio-8080-exec-2] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/src/oswbba_input.txt
+2025-08-21 12:29:54.104 [http-nio-8080-exec-2] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/src/missing_graphic.gif
+2025-08-21 12:29:54.104 [http-nio-8080-exec-2] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/src/coe_logo.gif
+2025-08-21 12:29:54.104 [http-nio-8080-exec-2] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/src/watch.gif
+2025-08-21 12:29:54.104 [http-nio-8080-exec-2] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/src/tombody.gif
+2025-08-21 12:29:54.106 [http-nio-8080-exec-2] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/home/jioadm/patches/README.txt
+2025-08-21 12:29:54.107 [http-nio-8080-exec-2] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/root/OA_12.12_LIN/opensource/License.txt
+2025-08-21 12:29:54.107 [http-nio-8080-exec-2] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/root/OA_12.12_LIN/OperationsAgent_ReadMe.pdf
+2025-08-21 12:29:57.100 [pool-4-thread-2] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /home/jioappadm/.mozilla/firefox/fh3xncbw.default-default/pkcs11.txt
+2025-08-21 12:29:57.100 [pool-4-thread-1] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /home/topsadm/donttouch.txt
+2025-08-21 12:29:57.106 [pool-4-thread-3] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /home/infosecurity/mydetails.txt
+2025-08-21 12:29:57.111 [pool-4-thread-7] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /root/OA_12.12_LIN/EULA.txt
+2025-08-21 12:29:57.120 [pool-4-thread-8] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /neapp/NEWizard_Setup_030323/NEWizard_SetupV1.8.115.txt
+2025-08-21 12:29:57.123 [pool-4-thread-5] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /home/infosecurity/1000106663.jpg
+2025-08-21 12:29:57.123 [pool-4-thread-9] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /neapp/NEWizard_Setup/NEWizard_SetupV1.8.115.txt
+2025-08-21 12:29:57.134 [pool-4-thread-6] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /home/infosecurity/Sample_Document.pdf
+2025-08-21 12:29:57.148 [pool-4-thread-4] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /home/infosecurity/text.txt
+2025-08-21 12:29:58.115 [pool-4-thread-3] INFO  c.jio.services.RemotePiiScanService - ✅ Matched lines in text: /home/infosecurity/mydetails.txt
+2025-08-21 12:29:58.214 [pool-4-thread-7] INFO  c.jio.services.RemotePiiScanService - ✅ Matched lines in text: /root/OA_12.12_LIN/EULA.txt
+2025-08-21 12:29:58.243 [pool-4-thread-6] INFO  c.jio.services.RemotePiiScanService - 📄 [PlainOCR] Processing PDF page 1/1
+2025-08-21 12:29:58.250 [pool-4-thread-1] INFO  c.jio.services.RemotePiiScanService - ✅ Matched lines in text: /home/topsadm/donttouch.txt
+2025-08-21 12:29:58.261 [pool-4-thread-4] INFO  c.jio.services.RemotePiiScanService - ✅ Matched lines in text: /home/infosecurity/text.txt
+2025-08-21 12:29:58.269 [pool-4-thread-8] INFO  c.jio.services.RemotePiiScanService - ✅ Matched lines in text: /neapp/NEWizard_Setup_030323/NEWizard_SetupV1.8.115.txt
+2025-08-21 12:29:58.270 [pool-4-thread-2] INFO  c.jio.services.RemotePiiScanService - ✅ Matched lines in text: /home/jioappadm/.mozilla/firefox/fh3xncbw.default-default/pkcs11.txt
+2025-08-21 12:29:58.295 [pool-4-thread-9] INFO  c.jio.services.RemotePiiScanService - ✅ Matched lines in text: /neapp/NEWizard_Setup/NEWizard_SetupV1.8.115.txt
+2025-08-21 12:29:58.363 [pool-4-thread-5] INFO  c.jio.services.RemotePiiScanService - 📸 Detected image format 'JPEG' for file: remote_5100812368562759559_1000106663.jpg
+2025-08-21 12:29:58.461 [pool-4-thread-6] INFO  c.jio.services.RemotePiiScanService - 📄 [EnhancedOCR] Processing PDF page 1/1
+2025-08-21 12:29:59.501 [pool-4-thread-5] INFO  c.jio.services.RemotePiiScanService - ✅ Scanned binary/image/pdf file: /home/infosecurity/1000106663.jpg
+2025-08-21 12:29:59.638 [pool-4-thread-6] INFO  c.jio.services.RemotePiiScanService - ✅ Scanned binary/image/pdf file: /home/infosecurity/Sample_Document.pdf
+2025-08-21 12:30:21.749 [http-nio-8080-exec-7] INFO  c.jio.services.RemotePiiScanService - 🔍 Starting new scan: [44b72b4a] Target: Testing-10.147.78.135, Path: /
+2025-08-21 12:30:23.343 [http-nio-8080-exec-7] INFO  c.jio.services.RemotePiiScanService - ✅ SSH connection successful to host 10.147.78.135
+2025-08-21 12:30:25.171 [http-nio-8080-exec-7] INFO  c.jio.services.RemotePiiScanService - 🚀 Using thread pool size: 24
+2025-08-21 12:30:25.624 [http-nio-8080-exec-7] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/docs/The_Analyzer/OSWatcherAnalyzerOverview.pdf
+2025-08-21 12:30:25.625 [http-nio-8080-exec-7] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/docs/The_Analyzer/oswbbaUserGuide.pdf
+2025-08-21 12:30:25.625 [http-nio-8080-exec-7] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/docs/The_Analyzer/oswbba_README.txt
+2025-08-21 12:30:25.625 [http-nio-8080-exec-7] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/docs/OSWatcher/OSWatcherUserGuide.pdf
+2025-08-21 12:30:25.625 [http-nio-8080-exec-7] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/docs/OSWatcher/oswbb_README.txt
+2025-08-21 12:30:25.625 [http-nio-8080-exec-7] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/Example_extras.txt
+2025-08-21 12:30:25.625 [http-nio-8080-exec-7] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/src/oswbba_input.txt
+2025-08-21 12:30:25.625 [http-nio-8080-exec-7] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/src/missing_graphic.gif
+2025-08-21 12:30:25.625 [http-nio-8080-exec-7] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/src/coe_logo.gif
+2025-08-21 12:30:25.625 [http-nio-8080-exec-7] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/src/watch.gif
+2025-08-21 12:30:25.625 [http-nio-8080-exec-7] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/monitoring_logs/oswbb/src/tombody.gif
+2025-08-21 12:30:25.625 [http-nio-8080-exec-7] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/home/jioadm/patches/README.txt
+2025-08-21 12:30:25.627 [http-nio-8080-exec-7] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/root/OA_12.12_LIN/opensource/License.txt
+2025-08-21 12:30:25.627 [http-nio-8080-exec-7] INFO  c.jio.services.RemotePiiScanService - Skipping excluded file, path=/root/OA_12.12_LIN/OperationsAgent_ReadMe.pdf
+2025-08-21 12:30:28.633 [pool-5-thread-1] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /home/topsadm/donttouch.txt
+2025-08-21 12:30:28.639 [pool-5-thread-5] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /home/infosecurity/1000106663.jpg
+2025-08-21 12:30:28.639 [pool-5-thread-7] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /root/OA_12.12_LIN/EULA.txt
+2025-08-21 12:30:28.652 [pool-5-thread-9] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /neapp/NEWizard_Setup/NEWizard_SetupV1.8.115.txt
+2025-08-21 12:30:28.665 [pool-5-thread-8] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /neapp/NEWizard_Setup_030323/NEWizard_SetupV1.8.115.txt
+2025-08-21 12:30:28.679 [pool-5-thread-4] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /home/infosecurity/text.txt
+2025-08-21 12:30:28.683 [pool-5-thread-3] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /home/infosecurity/mydetails.txt
+2025-08-21 12:30:29.379 [pool-5-thread-1] INFO  c.jio.services.RemotePiiScanService - ✅ Matched lines in text: /home/topsadm/donttouch.txt
+2025-08-21 12:30:29.501 [pool-5-thread-9] INFO  c.jio.services.RemotePiiScanService - ✅ Matched lines in text: /neapp/NEWizard_Setup/NEWizard_SetupV1.8.115.txt
+2025-08-21 12:30:29.513 [pool-5-thread-3] INFO  c.jio.services.RemotePiiScanService - ✅ Matched lines in text: /home/infosecurity/mydetails.txt
+2025-08-21 12:30:29.531 [pool-5-thread-8] INFO  c.jio.services.RemotePiiScanService - ✅ Matched lines in text: /neapp/NEWizard_Setup_030323/NEWizard_SetupV1.8.115.txt
+2025-08-21 12:30:29.543 [pool-5-thread-7] INFO  c.jio.services.RemotePiiScanService - ✅ Matched lines in text: /root/OA_12.12_LIN/EULA.txt
+2025-08-21 12:30:29.544 [pool-5-thread-4] INFO  c.jio.services.RemotePiiScanService - ✅ Matched lines in text: /home/infosecurity/text.txt
+2025-08-21 12:30:29.610 [pool-5-thread-5] INFO  c.jio.services.RemotePiiScanService - 📸 Detected image format 'JPEG' for file: remote_9527809826317094824_1000106663.jpg
+2025-08-21 12:30:30.517 [pool-5-thread-5] INFO  c.jio.services.RemotePiiScanService - ✅ Scanned binary/image/pdf file: /home/infosecurity/1000106663.jpg
+2025-08-21 12:30:31.374 [pool-5-thread-6] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /home/infosecurity/Sample_Document.pdf
+2025-08-21 12:30:31.411 [pool-5-thread-2] INFO  c.jio.services.RemotePiiScanService - 🔍 Scanning file /home/jioappadm/.mozilla/firefox/fh3xncbw.default-default/pkcs11.txt
+2025-08-21 12:30:32.121 [pool-5-thread-2] INFO  c.jio.services.RemotePiiScanService - ✅ Matched lines in text: /home/jioappadm/.mozilla/firefox/fh3xncbw.default-default/pkcs11.txt
+2025-08-21 12:30:32.166 [pool-5-thread-6] INFO  c.jio.services.RemotePiiScanService - 📄 [PlainOCR] Processing PDF page 1/1
+2025-08-21 12:30:32.343 [pool-5-thread-6] INFO  c.jio.services.RemotePiiScanService - 📄 [EnhancedOCR] Processing PDF page 1/1
+2025-08-21 12:30:33.291 [pool-5-thread-6] INFO  c.jio.services.RemotePiiScanService - ✅ Scanned binary/image/pdf file: /home/infosecurity/Sample_Document.pdf

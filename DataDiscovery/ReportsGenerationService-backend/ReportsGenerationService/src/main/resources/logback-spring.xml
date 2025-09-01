@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<!-- Property for log directory -->
+	<property name="LOG_PATH" value="logs" />
+	<property name="LOG_PATTERN"
+		value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
+
+	<!-- Console appender: logs to console -->
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- Rolling file appender: logs to file only for RemotePiiScanService -->
+	<appender name="PIISCAN_FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/pii-scan.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!-- daily rollover and max 50MB per file -->
+			<fileNamePattern>
+				${LOG_PATH}/archive/pii-scan.%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+			<maxFileSize>50MB</maxFileSize>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="WINREMOTEPIISCAN_FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/winremote-pii-scan.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>
+				${LOG_PATH}/archive/winremote-pii-scan.%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+			<maxFileSize>50MB</maxFileSize>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- Logger for only com.jio.services.RemotePiiScanService to write to file -->
+	<logger name="com.jio.services.RemotePiiScanService" level="INFO"
+		additivity="false">
+		<appender-ref ref="PIISCAN_FILE" />
+	</logger>
+
+	<!-- Logger for com.jio.services.WindowsRemotePiiScanService to write to
+	file -->
+	<logger name="com.jio.services.WindowsRemotePiiScanService" level="INFO"
+		additivity="false">
+		<appender-ref ref="WINREMOTEPIISCAN_FILE" />
+	</logger>
+
+	<!-- Root logger logs INFO and above to console -->
+	<root level="DEBUG">
+		<appender-ref ref="CONSOLE" />
+	</root>
+
+</configuration>
